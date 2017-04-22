@@ -1,0 +1,9 @@
+{
+  "eslint.enable": true,
+  "eslint.run": "onSave",
+  "eslint.autoFixOnSave": true,
+  "files.associations": {
+    "*.js": "javascriptreact",
+    ".netlify": "json"
+  }
+}
