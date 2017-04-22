@@ -15,6 +15,7 @@ export default (initialState = {}) => {
   // ======================================================
   const enhancers = []
 
+  let __DEV__ = __DEV__ || false
   let composeEnhancers = compose
 
   if (__DEV__) {

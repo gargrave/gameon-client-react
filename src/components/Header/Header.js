@@ -3,7 +3,7 @@ import { IndexLink, Link } from 'react-router'
 
 export const Header = () => (
   <div>
-    <h1>Game On</h1>
+    <h1>GameOn</h1>
     <IndexLink to='/' activeClassName='route--active'>
       Home
     </IndexLink>
