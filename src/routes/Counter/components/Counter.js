@@ -24,13 +24,21 @@ class Counter extends React.Component {
   render () {
     return (
       <div style={{ margin: '0 auto' }} >
-        <h2>Counter: {this.props.counter}</h2>
+        <h2 className='counter-display'>Counter: {this.props.counter}</h2>
 
-        <Button primary onClick={this.props.increment}>
+        <Button
+          primary
+          className='increment-button'
+          onClick={this.props.increment}
+        >
           Increment
         </Button>
         {' '}
-        <Button secondary onClick={this.props.doubleAsync}>
+        <Button
+          secondary
+          className='double-button'
+          onClick={this.props.doubleAsync}
+        >
           Double (Async)
         </Button>
 
