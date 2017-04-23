@@ -1,0 +1,8 @@
+export const types = {
+  ACCOUNT_AJAX_BEGIN: 'ACCOUNT_AJAX_BEGIN',
+  ACCOUNT_AJAX_END: 'ACCOUNT_AJAX_END',
+  ACCOUNT_AJAX_ERROR: 'ACCOUNT_AJAX_ERROR'
+}
+
+export const actions = {
+}

@@ -33,5 +33,29 @@ describe('(Component) Header', () => {
         </Link>
       )).toBeTruthy()
     })
+
+    it('Should render a Link to Login route', () => {
+      expect(wrapper.contains(
+        <Link activeClassName='route--active' to='/account/login'>
+          Login
+        </Link>
+      )).toBeTruthy()
+    })
+
+    it('Should render a Link to Register route', () => {
+      expect(wrapper.contains(
+        <Link activeClassName='route--active' to='/account/register'>
+          Register
+        </Link>
+      )).toBeTruthy()
+    })
+
+    it('Should render a Link to Profile route', () => {
+      expect(wrapper.contains(
+        <Link activeClassName='route--active' to='/account/profile'>
+          Profile
+        </Link>
+      )).toBeTruthy()
+    })
   })
 })
