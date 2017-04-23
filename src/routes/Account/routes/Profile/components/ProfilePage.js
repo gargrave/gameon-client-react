@@ -1,7 +1,9 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
-class Counter extends React.Component {
+import RequireAuth from '../../../../../components/RequireAuth'
+
+class ProfilePage extends React.Component {
   render () {
     return (
       <div>
@@ -11,7 +13,8 @@ class Counter extends React.Component {
   }
 }
 
-Counter.propTypes = {
+ProfilePage.propTypes = {
+  loggedIn: PropTypes.bool
 }
 
-export default Counter
+export default RequireAuth(ProfilePage)

@@ -1,7 +1,8 @@
 import { types } from './accountActions'
 
 const initialState = {
-  ajaxPending: false
+  ajaxPending: false,
+  token: null
 }
 
 export default function counterReducer (state = initialState, action) {

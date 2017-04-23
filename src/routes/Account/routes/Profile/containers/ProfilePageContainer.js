@@ -7,6 +7,7 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state) => ({
+  loggedIn: !!state.account.token
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage)
