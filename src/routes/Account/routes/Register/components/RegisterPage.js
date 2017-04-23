@@ -1,7 +1,7 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
 
-class Counter extends React.Component {
+class RegisterPage extends React.Component {
   render () {
     return (
       <div style={{ margin: '0 auto' }} >
@@ -11,7 +11,7 @@ class Counter extends React.Component {
   }
 }
 
-Counter.propTypes = {
+RegisterPage.propTypes = {
 }
 
-export default Counter
+export default RegisterPage
