@@ -16,6 +16,7 @@
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",
     "test": "jest",
+    "test:watch": "jest --watch",
     "test:dev": "npm run test -- --watch",
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
@@ -61,6 +62,9 @@
       "env": {
         "DEBUG": "app:*"
       }
+    },
+    "test:watch": {
+      "command": "jest --watch"
     }
   },
   "repository": {
