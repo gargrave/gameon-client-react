@@ -27,12 +27,23 @@ export const actions = {
                 })
                 reject(err)
               } else {
-                dispatch({
-                  type: types.ACCOUNT_LOGIN,
-                  token: res.body.key
-                })
-                dispatch({ type: types.ACCOUNT_AJAX_END })
-                resolve(res)
+                const token = res.body.key
+                if (token) {
+                  localStorage.setItem('token', token)
+                  dispatch({
+                    type: types.ACCOUNT_LOGIN,
+                    token
+                  })
+                  dispatch({ type: types.ACCOUNT_AJAX_END })
+                  resolve(res)
+                } else {
+                  dispatch({ type: types.ACCOUNT_AJAX_END })
+                  dispatch({
+                    type: types.ACCOUNT_AJAX_ERROR,
+                    err
+                  })
+                  reject('Unknown error')
+                }
               }
             })
         }, 650)
@@ -50,18 +61,11 @@ export const actions = {
             .set('Accept', 'application/json')
             .set('Authorization', `Token ${token}`)
             .end((err, res) => {
-              if (err) {
-                dispatch({ type: types.ACCOUNT_AJAX_END })
-                dispatch({
-                  type: types.ACCOUNT_AJAX_ERROR,
-                  err
-                })
-                reject(err)
-              } else {
-                dispatch({ type: types.ACCOUNT_LOGOUT })
-                dispatch({ type: types.ACCOUNT_AJAX_END })
-                resolve(res)
-              }
+              if (err) { }
+              localStorage.clear()
+              dispatch({ type: types.ACCOUNT_LOGOUT })
+              dispatch({ type: types.ACCOUNT_AJAX_END })
+              resolve(res)
             })
         }, 400)
       })
