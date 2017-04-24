@@ -20,6 +20,10 @@ export class Header extends React.Component {
   renderLoggedInContent () {
     return (
       <span>
+        <Link to='/platforms' activeClassName='route--active'>
+          Platforms
+        </Link>
+        {' | '}
         <Link to='/account/profile' activeClassName='route--active'>
           Profile
         </Link>

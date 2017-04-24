@@ -107,6 +107,14 @@ describe('(Component) Header', () => {
           </Link>
         )).toBeTruthy()
       })
+
+      it('Renders a Link to Platforms route', () => {
+        expect(wrapper.contains(
+          <Link activeClassName='route--active' to='/platforms'>
+            Platforms
+          </Link>
+        )).toBeTruthy()
+      })
     })
   })
 })
