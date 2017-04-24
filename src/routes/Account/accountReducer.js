@@ -3,8 +3,24 @@ import { types } from './accountActions'
 const initialState = {
   ajaxPending: false,
   apiError: '',
-  token: ''
+  token: '',
+  user: {},
+  profile: {}
 }
+
+const parseUserData = (user) => ({
+  id: user.pk,
+  username: user.username,
+  email: user.email,
+  dateJoined: user.date_joined,
+  lastLogin: user.last_login
+})
+
+const parseProfileData = (profile) => ({
+  id: profile.pk,
+  firstName: profile.first_name,
+  lastName: profile.last_name
+})
 
 export default function counterReducer (state = initialState, action) {
   switch (action.type) {
@@ -20,12 +36,6 @@ export default function counterReducer (state = initialState, action) {
         apiError: ''
       })
 
-    case types.ACCOUNT_AJAX_ERROR:
-      return Object.assign({}, state, {
-        // apiError: action.err
-        apiError: 'err'
-      })
-
     case types.ACCOUNT_LOGIN:
       return Object.assign({}, state, {
         token: action.token
@@ -33,7 +43,15 @@ export default function counterReducer (state = initialState, action) {
 
     case types.ACCOUNT_LOGOUT:
       return Object.assign({}, state, {
-        token: ''
+        token: '',
+        user: {},
+        profile: {}
+      })
+
+    case types.ACCOUNT_FETCH_USER_SUCCESS:
+      return Object.assign({}, state, {
+        user: parseUserData(action.user),
+        profile: parseProfileData(action.profile)
       })
 
     default:
