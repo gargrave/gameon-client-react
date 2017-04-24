@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 
 import { actions } from '../platformActions'
 
-import PlatformListPage from '../components/PlatformListPage'
+import PlatformsHome from '../components/PlatformsHome'
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
@@ -14,4 +14,4 @@ const mapStateToProps = (state) => ({
   ajaxPending: state.platforms.ajaxPending
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlatformListPage)
+export default connect(mapStateToProps, mapDispatchToProps)(PlatformsHome)
