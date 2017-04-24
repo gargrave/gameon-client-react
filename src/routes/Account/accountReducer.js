@@ -36,6 +36,12 @@ export default function counterReducer (state = initialState, action) {
         apiError: ''
       })
 
+    case types.ACCOUNT_AJAX_ERROR:
+      return Object.assign({}, state, {
+        ajaxPending: false,
+        apiError: 'whatever'
+      })
+
     case types.ACCOUNT_LOGIN:
       return Object.assign({}, state, {
         token: action.token

@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Message, Segment } from 'semantic-ui-react'
+import validator from 'validator'
 
+import { valErrs } from '../../../../../globals/errors'
 import { localUrls } from '../../../../../globals/urls'
 
 import LoginForm from './LoginForm'
@@ -11,41 +13,74 @@ class LoginPage extends React.Component {
     super(props)
 
     this.state = {
-      username: '',
-      password: ''
+      loginData: {
+        username: '',
+        password: ''
+      },
+      validationErrors: {
+        username: '',
+        password: ''
+      }
     }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleLogin = this.handleLogin.bind(this)
   }
 
   handleChange (event) {
     event.preventDefault()
-    let newState = Object.assign({}, this.state)
+    let loginData = Object.assign({}, this.state.loginData)
     const key = event.target.name
     const value = event.target.value
 
-    if (newState.hasOwnProperty(key)) {
-      newState[key] = value
-      this.setState(newState)
+    if (loginData.hasOwnProperty(key)) {
+      loginData[key] = value
+      this.setState({ loginData })
     }
   }
 
-  handleLogin (event) {
+  handleSubmit (event) {
     event.preventDefault()
-    this.props.actions.login(this.state)
-      .then(() => {
-        this.props.actions.fetchUser()
-          .then(() => {
-            this.props.router.replace(localUrls.profile)
-          })
-      }, () => { })
+    if (this.isValid()) {
+      this.props.actions.login(this.state.loginData)
+        .then(() => {
+          this.props.actions.fetchUser()
+            .then(() => {
+              this.props.router.replace(localUrls.profile)
+            })
+        }, err => {
+          this.apiError = err
+        })
+    }
+  }
+
+  isValid () {
+    let valid = true
+    let loginData = Object.assign({}, this.state.loginData)
+    let validationErrors = { username: '', password: '' }
+
+    // validate username -> required
+    validationErrors.username = ''
+    if (validator.isEmpty(loginData.username)) {
+      validationErrors.username = valErrs.required
+      valid = false
+    }
+
+    // validate password -> required, min 8 digits
+    validationErrors.password = ''
+    if (validator.isEmpty(loginData.password)) {
+      validationErrors.password = valErrs.required
+      valid = false
+    } else if (!validator.isLength(loginData.password, { min: 8 })) {
+      validationErrors.password = valErrs.length(8)
+      valid = false
+    }
+
+    this.setState({ validationErrors })
+    return valid
   }
 
   render () {
     return (
       <Segment style={{ maxWidth: 600, margin: 'auto' }}>
-        <h2>Login Page</h2>
+        <h2 className='page-title'>Login Page</h2>
 
         {this.props.apiError &&
           <Message negative>
@@ -56,9 +91,10 @@ class LoginPage extends React.Component {
 
         <LoginForm
           working={this.props.ajaxPending}
-          state={this.state}
-          changed={this.handleChange}
-          submitted={this.handleLogin}
+          loginData={this.state.loginData}
+          errors={this.state.validationErrors}
+          changed={e => this.handleChange(e)}
+          submitted={e => this.handleSubmit(e)}
         />
       </Segment>
     )
