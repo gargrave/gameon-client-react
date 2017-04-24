@@ -11,7 +11,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   ajaxPending: state.account.ajaxPending,
-  loggedIn: !!state.account.token
+  loggedIn: !!state.account.token,
+  user: state.account.user,
+  profile: state.account.profile
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage)

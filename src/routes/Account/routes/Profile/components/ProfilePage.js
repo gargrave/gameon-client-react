@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Dimmer, Loader, Segment } from 'semantic-ui-react'
+import { Button, Dimmer, List, Loader, Segment } from 'semantic-ui-react'
 
 import { localUrls } from '../../../../../globals/urls'
 
@@ -30,6 +30,13 @@ class ProfilePage extends React.Component {
           <Loader inverted>Working...</Loader>
         </Dimmer>
 
+        <List>
+          <List.Item><strong>Name:</strong> {this.props.profile.firstName} {this.props.profile.lastName}</List.Item>
+          <List.Item><strong>Username:</strong> {this.props.user.username}</List.Item>
+          <List.Item><strong>Email:</strong> {this.props.user.email}</List.Item>
+          <List.Item><strong>Joined on:</strong> {this.props.user.dateJoined}</List.Item>
+        </List>
+
         <Button onClick={this.handleLogout}>Log Out</Button>
       </Segment>
     )
@@ -39,7 +46,9 @@ class ProfilePage extends React.Component {
 ProfilePage.propTypes = {
   router: PropTypes.object,
   actions: PropTypes.object.isRequired,
-  ajaxPending: PropTypes.bool.isRequired
+  ajaxPending: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 }
 
 export default RequireAuth(ProfilePage)
