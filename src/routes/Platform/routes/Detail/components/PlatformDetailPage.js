@@ -7,7 +7,7 @@ import RequireAuth from '../../../../../components/RequireAuth'
 class PlatformDetailPage extends React.Component {
   render () {
     return (
-      <Segment style={{ maxWidth: 600, margin: 'auto' }}>
+      <Segment className='segment-card'>
         <h2>Platform Detail Page</h2>
       </Segment>
     )
@@ -15,7 +15,6 @@ class PlatformDetailPage extends React.Component {
 }
 
 PlatformDetailPage.propTypes = {
-  router: PropTypes.object,
   actions: PropTypes.object.isRequired,
   ajaxPending: PropTypes.bool.isRequired
 }

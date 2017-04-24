@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import RequireAuth from '../../../components/RequireAuth'
-import PlatformsListPage from '../routes/List/components/PlatformsListPage'
+import PlatformsListContainer from '../routes/List/containers/PlatformsListContainer'
 
 class PlatformsHome extends React.Component {
   render () {
     return (
       <div>
         {this.props.children ? this.props.children
-          : <PlatformsListPage {...this.props} />
+          : <PlatformsListContainer {...this.props} />
         }
       </div>
     )

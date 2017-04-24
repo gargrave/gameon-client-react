@@ -7,12 +7,6 @@ import { localUrls } from '../../../../../globals/urls'
 import RequireAuth from '../../../../../components/RequireAuth'
 
 class ProfilePage extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.handleLogout = this.handleLogout.bind(this)
-  }
-
   handleLogout (event) {
     event.preventDefault()
     this.props.actions.logout()
@@ -23,7 +17,7 @@ class ProfilePage extends React.Component {
 
   render () {
     return (
-      <Segment style={{ maxWidth: 600, margin: 'auto' }}>
+      <Segment className='segment-card'>
         <h2>Profile Page</h2>
 
         <Dimmer inverted active={this.props.ajaxPending}>
@@ -37,7 +31,7 @@ class ProfilePage extends React.Component {
           <List.Item><strong>Joined on:</strong> {this.props.user.dateJoined}</List.Item>
         </List>
 
-        <Button onClick={this.handleLogout}>Log Out</Button>
+        <Button onClick={e => this.handleLogout(e)}>Log Out</Button>
       </Segment>
     )
   }
