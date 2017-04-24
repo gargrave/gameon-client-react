@@ -1,5 +1,3 @@
-import request from 'superagent'
-
 export const types = {
   COUNTER_AJAX_BEGIN: 'COUNTER_AJAX_BEGIN',
   COUNTER_AJAX_END: 'COUNTER_AJAX_END',
@@ -40,34 +38,11 @@ export const actions = {
   checkUser: (username) => {
     return (dispatch, getState) => {
       return new Promise((resolve, reject) => {
-        const url = 'http://localhost:8000/rest-auth/registration/usercheck/'
-
         dispatch({ type: types.COUNTER_AJAX_BEGIN })
         setTimeout(() => {
-          request
-          .post(url)
-          .send({ username })
-          .set('Accept', 'application/json')
-          .end((err, res) => {
-            if (err) {
-              dispatch({
-                type: types.COUNTER_AJAX_ERROR,
-                err
-              })
-              dispatch({ type: types.COUNTER_AJAX_END })
-              reject(err)
-            } else {
-              const data = res.body
-              if (data.user) {
-                dispatch({ type: types.USERNAME_TAKEN })
-                dispatch({ type: types.COUNTER_AJAX_END })
-              } else {
-                dispatch({ type: types.USERNAME_AVAILABLE })
-                dispatch({ type: types.COUNTER_AJAX_END })
-              }
-              resolve(data)
-            }
-          })
+          dispatch({ type: types.USERNAME_AVAILABLE })
+          dispatch({ type: types.COUNTER_AJAX_END })
+          resolve(data)
         }, 1000)
       })
     }
