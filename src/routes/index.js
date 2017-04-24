@@ -3,17 +3,19 @@ import { injectReducer } from '../store/reducers'
 import Home from './Home'
 import CounterRoute from './Counter'
 import AccountRoute from './Account'
+import PlatformRoute from './Platform'
 
 export const createRoutes = (store) => ({
   path: '/',
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
       const CoreLayout = require('../layouts/CoreLayout').default
-      const reducer = require('./Account/accountReducer').default
+      const accountReducer = require('./Account/accountReducer').default
+      const platformReducer = require('./Platform/platformReducer').default
 
-      /* we know we will always need this reducer (for auth),
-       * so we are injecting it here instead of in the Account route */
-      injectReducer(store, { key: 'account', reducer })
+      /* go ahead and inject any reducers we know we will need */
+      injectReducer(store, { key: 'account', reducer: accountReducer })
+      injectReducer(store, { key: 'platforms', reducer: platformReducer })
 
       cb(null, CoreLayout)
     }, 'account')
@@ -21,7 +23,8 @@ export const createRoutes = (store) => ({
   indexRoute: Home,
   childRoutes: [
     CounterRoute(store),
-    AccountRoute(store)
+    AccountRoute(store),
+    PlatformRoute(store)
   ]
 })
 
