@@ -1,5 +1,9 @@
 .segment-card {
-  max-width: 600px;
+  max-width: $clampMaxWidth;
   margin-left: auto !important;
   margin-right: auto !important;
+}
+
+.container .segment {
+  text-align: left;
 }

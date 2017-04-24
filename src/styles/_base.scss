@@ -10,4 +10,6 @@ For example:
 @import './variables/components';
 @import './themes/default';
 */
-@import 'sem-overrides'
+@import 'vars';
+@import 'sem-overrides';
+@import 'forms';

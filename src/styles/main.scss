@@ -20,12 +20,16 @@ body {
   box-sizing: inherit;
 }
 
-.pointer {
-  cursor: pointer;
-}
-
 .main-content-area {
   padding: 20px;
+}
+
+.page-title {
+  text-align: center;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .core-layout__viewport {
