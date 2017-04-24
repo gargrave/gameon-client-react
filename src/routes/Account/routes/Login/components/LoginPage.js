@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Message, Segment } from 'semantic-ui-react'
 
+import { localUrls } from '../../../../../globals/urls'
+
 import LoginForm from './LoginForm'
 
 class LoginPage extends React.Component {
@@ -33,7 +35,10 @@ class LoginPage extends React.Component {
     event.preventDefault()
     this.props.actions.login(this.state)
       .then(() => {
-        this.props.router.replace('/account/profile')
+        this.props.actions.fetchUser()
+          .then(() => {
+            this.props.router.replace(localUrls.profile)
+          })
       }, () => { })
   }
 

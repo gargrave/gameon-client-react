@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Dimmer, Loader, Segment } from 'semantic-ui-react'
 
+import { localUrls } from '../../../../../globals/urls'
+
 import RequireAuth from '../../../../../components/RequireAuth'
 
 class ProfilePage extends React.Component {
@@ -13,9 +15,9 @@ class ProfilePage extends React.Component {
 
   handleLogout (event) {
     event.preventDefault()
-    this.props.actions.logout(this.props.token)
+    this.props.actions.logout()
       .then(() => {
-        this.props.router.replace('/account/login')
+        this.props.router.replace(localUrls.login)
       }, () => { })
   }
 
@@ -37,8 +39,7 @@ class ProfilePage extends React.Component {
 ProfilePage.propTypes = {
   router: PropTypes.object,
   actions: PropTypes.object.isRequired,
-  ajaxPending: PropTypes.bool.isRequired,
-  token: PropTypes.string.isRequired
+  ajaxPending: PropTypes.bool.isRequired
 }
 
 export default RequireAuth(ProfilePage)

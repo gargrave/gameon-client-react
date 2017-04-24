@@ -11,7 +11,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   ajaxPending: state.account.ajaxPending,
-  token: state.account.token,
   loggedIn: !!state.account.token
 })
 
