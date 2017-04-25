@@ -136,5 +136,17 @@ export const actions = {
         }
       })
     }
+  },
+
+  register () {
+    return (dispatch, getState) => {
+      return new Promise((resolve, reject) => {
+        dispatch({
+          type: types.ACCOUNT_AJAX_ERROR,
+          err: 'err'
+        })
+        reject('not implemented')
+      })
+    }
   }
 }
