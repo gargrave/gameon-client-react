@@ -79,8 +79,8 @@ class LoginPage extends React.Component {
 
   render () {
     return (
-      <Segment style={{ maxWidth: 600, margin: 'auto' }}>
-        <h2 className='page-title'>Login Page</h2>
+      <Segment className='segment-card'>
+        <h2 className='page-title'>Login</h2>
 
         {this.props.apiError &&
           <Message negative>
