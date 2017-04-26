@@ -85,7 +85,7 @@ class LoginPage extends React.Component {
         {this.props.apiError &&
           <Message negative>
             <Message.Header>Login Error</Message.Header>
-            <p>Could not log in with the provided credentials. Please try again.</p>
+            <p>{this.props.apiError}</p>
           </Message>
         }
 

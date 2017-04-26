@@ -3,11 +3,15 @@ import { types } from './accountActions'
 const initialState = {
   ajaxPending: false,
   apiError: '',
+  errors: {
+    login: ''
+  },
   token: '',
   user: {},
   profile: {}
 }
 
+// helper methods for building data from API responses
 const parseUserData = (user) => ({
   id: user.pk,
   username: user.username,
@@ -21,6 +25,11 @@ const parseProfileData = (profile) => ({
   firstName: profile.first_name,
   lastName: profile.last_name
 })
+
+// pre-built messages for responding to various error states
+const err = {
+  login: 'Could not log in with the provided credentials. Please try again.'
+}
 
 export default function counterReducer (state = initialState, action) {
   switch (action.type) {
@@ -42,9 +51,16 @@ export default function counterReducer (state = initialState, action) {
         apiError: 'whatever'
       })
 
+    // handle successful login attempt; add the provided token to the store
     case types.ACCOUNT_LOGIN:
       return Object.assign({}, state, {
         token: action.token
+      })
+
+    // handle error responses from failed login attempts
+    case types.ACCOUNT_LOGIN_ERROR:
+      return Object.assign({}, state, {
+        errors: { login: err.login }
       })
 
     case types.ACCOUNT_LOGOUT:

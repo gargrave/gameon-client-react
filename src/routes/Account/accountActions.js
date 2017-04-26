@@ -8,6 +8,7 @@ export const types = {
   ACCOUNT_AJAX_END: 'ACCOUNT_AJAX_END',
   ACCOUNT_AJAX_ERROR: 'ACCOUNT_AJAX_ERROR',
   ACCOUNT_LOGIN: 'ACCOUNT_LOGIN',
+  ACCOUNT_LOGIN_ERROR: 'ACCOUNT_LOGIN_ERROR',
   ACCOUNT_LOGOUT: 'ACCOUNT_LOGOUT',
   ACCOUNT_FETCH_USER_SUCCESS: 'ACCOUNT_FETCH_USER_SUCCESS',
   ACCOUNT_FETCH_USER_ERROR: 'ACCOUNT_FETCH_USER_ERROR'
@@ -34,7 +35,7 @@ export const actions = {
               } else {
                 dispatch({ type: types.ACCOUNT_AJAX_END })
                 dispatch({
-                  type: types.ACCOUNT_AJAX_ERROR,
+                  type: types.ACCOUNT_LOGIN_ERROR,
                   err: 'err'
                 })
                 reject('Unknown error')
@@ -43,7 +44,7 @@ export const actions = {
             .catch(err => {
               dispatch({ type: types.ACCOUNT_AJAX_END })
               dispatch({
-                type: types.ACCOUNT_AJAX_ERROR,
+                type: types.ACCOUNT_LOGIN_ERROR,
                 err
               })
               reject(err)
