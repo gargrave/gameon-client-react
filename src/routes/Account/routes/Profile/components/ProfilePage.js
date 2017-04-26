@@ -18,7 +18,7 @@ class ProfilePage extends React.Component {
   render () {
     return (
       <Segment className='segment-card'>
-        <h2>Profile Page</h2>
+        <h2 className='page-title'>Profile Page</h2>
 
         <Dimmer inverted active={this.props.ajaxPending}>
           <Loader inverted>Working...</Loader>

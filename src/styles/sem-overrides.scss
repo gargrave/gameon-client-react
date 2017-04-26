@@ -1,9 +1,13 @@
+.container .segment {
+  text-align: left;
+}
+
 .segment-card {
   max-width: $clampMaxWidth;
   margin-left: auto !important;
   margin-right: auto !important;
 }
 
-.container .segment {
-  text-align: left;
+.profile-card {
+  text-align: centerl
 }

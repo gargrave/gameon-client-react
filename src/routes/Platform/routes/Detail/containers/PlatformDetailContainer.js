@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import apiHelper from '../../../../../utils/apiHelper'
 import { actions } from '../../../platformActions'
 
 import PlatformDetailPage from '../components/PlatformDetailPage'
@@ -11,15 +12,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state, ownProps) => {
   let platformId = ownProps.params.id
-  console.log('TODO: need to parse platform info for platformId:')
-  console.log(platformId)
-  // let platform = apiHelper.findRecordById(state.platforms, platformId);
-  // if (!platform) {
-  //   platform = PLATFORM_API.getNewRecord();
-  // }
+  let platform = apiHelper.findRecordById(state.platforms.items, platformId)
+
   return {
     ajaxPending: state.account.ajaxPending,
-    loggedIn: !!state.account.token && !!state.account.user.email
+    loggedIn: !!state.account.token && !!state.account.user.email,
+    platform
   }
 }
 

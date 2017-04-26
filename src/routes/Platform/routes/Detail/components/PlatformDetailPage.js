@@ -8,7 +8,7 @@ class PlatformDetailPage extends React.Component {
   render () {
     return (
       <Segment className='segment-card'>
-        <h2>Platform Detail Page</h2>
+        <h2 className='page-title'>{this.props.platform.title}</h2>
       </Segment>
     )
   }
@@ -16,7 +16,8 @@ class PlatformDetailPage extends React.Component {
 
 PlatformDetailPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  ajaxPending: PropTypes.bool.isRequired
+  ajaxPending: PropTypes.bool.isRequired,
+  platform: PropTypes.object.isRequired
 }
 
 export default RequireAuth(PlatformDetailPage)
