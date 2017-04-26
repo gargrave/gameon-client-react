@@ -148,5 +148,22 @@ export const actions = {
         reject('not implemented')
       })
     }
+  },
+
+  checkForStoredToken () {
+    return (dispatch, getState) => {
+      return new Promise((resolve, reject) => {
+        const token = localStorage.getItem('token')
+        if (token) {
+          dispatch({
+            type: types.ACCOUNT_LOGIN,
+            token
+          })
+          resolve()
+        } else {
+          reject()
+        }
+      })
+    }
   }
 }

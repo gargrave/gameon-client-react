@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Container } from 'semantic-ui-react'
 
 import Header from '../../components/Header'
+import Initializer from '../../components/Initializer'
 
 import '../../styles/main.scss'
 
@@ -10,6 +11,7 @@ export const CoreLayout = ({ children }) => (
   <Container
     className='main-content-area'
     textAlign='center'>
+    <Initializer />
     <Header />
     <div className='core-layout__viewport'>
       {children}
