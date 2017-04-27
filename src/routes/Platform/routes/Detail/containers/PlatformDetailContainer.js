@@ -11,12 +11,19 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStateToProps = (state, ownProps) => {
+  let initializing = state.app.initializing
+  let loggedIn = !!state.account.token && !!state.account.user.email
+  let ajaxPending = state.platforms.ajaxPending
+  let readyToLoad = loggedIn && !initializing && !ajaxPending
+
   let platformId = ownProps.params.id
-  let platform = apiHelper.findRecordById(state.platforms.items, platformId)
+  let platform = apiHelper.findRecordById(state.platforms.items, platformId) || {}
 
   return {
-    ajaxPending: state.account.ajaxPending,
-    loggedIn: !!state.account.token && !!state.account.user.email,
+    initializing,
+    loggedIn,
+    ajaxPending: state.platforms.ajaxPending,
+    readyToLoad,
     platform
   }
 }
