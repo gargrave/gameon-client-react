@@ -1,3 +1,4 @@
+import PlatformCreateRoute from './routes/Create'
 import PlatformDetailRoute from './routes/Detail'
 
 export default (store) => ({
@@ -9,6 +10,7 @@ export default (store) => ({
     }, 'platforms')
   },
   childRoutes: [
+    PlatformCreateRoute(store),
     PlatformDetailRoute(store)
   ]
 })
