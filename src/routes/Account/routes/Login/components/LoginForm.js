@@ -12,12 +12,13 @@ const LoginForm = (props) => (
       </Dimmer>
 
       <Form.Field required
+        className='login-form'
         error={!!props.errors.username}>
         <label htmlFor='username'>Username</label>
         {!!props.errors.username && <p className='form-error'>{props.errors.username}</p>}
         <input
           type='text'
-          id='username'
+          id='login-username'
           name='username'
           placeholder='Username'
           value={props.loginData.username}
@@ -32,7 +33,7 @@ const LoginForm = (props) => (
         {!!props.errors.password && <p className='form-error'>{props.errors.password}</p>}
         <input
           type='password'
-          id='password'
+          id='login-password'
           name='password'
           placeholder='Password'
           value={props.loginData.password}
@@ -42,6 +43,7 @@ const LoginForm = (props) => (
 
       <Button
         primary
+        id='login-submit'
         type='submit'
         onClick={props.submitted}>
         Submit

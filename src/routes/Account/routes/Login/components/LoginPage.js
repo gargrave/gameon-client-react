@@ -37,17 +37,16 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit (event) {
+    const { login, fetchUser } = this.props.actions
     event.preventDefault()
     if (this.isValid()) {
-      this.props.actions.login(this.state.loginData)
+      login(this.state.loginData)
         .then(() => {
-          this.props.actions.fetchUser()
+          fetchUser()
             .then(() => {
               this.props.router.replace(localUrls.profile)
             })
-        }, err => {
-          this.apiError = err
-        })
+        }, () => {})
     }
   }
 
@@ -83,7 +82,7 @@ class LoginPage extends React.Component {
         <h2 className='page-title'>Login</h2>
 
         {this.props.apiError &&
-          <Message negative>
+          <Message negative id='login-api-error'>
             <Message.Header>Login Error</Message.Header>
             <p>{this.props.apiError}</p>
           </Message>
