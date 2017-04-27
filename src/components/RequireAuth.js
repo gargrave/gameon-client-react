@@ -5,12 +5,17 @@ const RequireAuth = (Component) => {
   return class extends React.Component {
     static propTypes = {
       router: PropTypes.object,
+      initializing: PropTypes.bool,
       loggedIn: PropTypes.bool
     }
 
-    componentWillMount () {
-      if (!this.props.loggedIn) {
-        this.props.router.replace('/account/login')
+    componentWillReceiveProps (nextProps) {
+      // if we are finished initializing and still not logged in,
+      // it is time to redirect to the login page
+      if (this.props.initializing && !nextProps.initializing) {
+        if (!this.props.loggedIn) {
+          this.props.router.replace('/account/login')
+        }
       }
     }
 

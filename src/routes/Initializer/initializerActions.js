@@ -9,11 +9,15 @@ export const types = {
 }
 
 export const actions = {
-  init ({ username, password }) {
+  initBegin () {
     return (dispatch, getState) => {
-      return new Promise((resolve, reject) => {
-        dispatch({ type: types.INITIALIZER_BEGIN })
-      })
+      dispatch({ type: types.INITIALIZER_BEGIN })
+    }
+  },
+
+  initEnd () {
+    return (dispatch, getState) => {
+      dispatch({ type: types.INITIALIZER_END })
     }
   }
 }

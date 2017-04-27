@@ -7,19 +7,26 @@ import { localUrls } from '../../globals/urls'
 export class Initializer extends React.Component {
   componentWillMount () {
     const { checkForStoredToken, fetchUser, logout } = this.props.accountActions
+    const { initBegin, initEnd } = this.props.initActions
 
+    initBegin()
     checkForStoredToken()
       .then(() => {
         fetchUser()
           .then(() => {
             // user logged in, profile fetched; no further action needed
+            initEnd()
           }, () => {
             // error fetching user data with token (i.e. invalid/expire token);
             // logout & redirect to Login page
-            logout().then(() => { this.props.router.push(localUrls.login) })
+            logout().then(() => {
+              initEnd()
+              this.props.router.push(localUrls.login)
+            })
           })
       }, () => {
         // no stored token; redirect to Login page
+        initEnd()
         this.props.router.push(localUrls.login)
       })
   }
