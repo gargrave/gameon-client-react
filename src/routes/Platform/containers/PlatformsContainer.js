@@ -9,9 +9,17 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(actions, dispatch)
 })
 
-const mapStateToProps = (state) => ({
-  loggedIn: !!state.account.token && !!state.account.user.email,
-  ajaxPending: state.platforms.ajaxPending
-})
+const mapStateToProps = (state) => {
+  let initializing = state.app.initializing
+  let loggedIn = !!state.account.token && !!state.account.user.email
+  let readyToLoad = loggedIn && !initializing
+
+  return {
+    initializing,
+    loggedIn,
+    readyToLoad,
+    ajaxPending: state.platforms.ajaxPending
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlatformsHome)

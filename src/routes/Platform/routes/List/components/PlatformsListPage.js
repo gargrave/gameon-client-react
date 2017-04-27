@@ -4,6 +4,18 @@ import { Segment } from 'semantic-ui-react'
 
 class PlatformListPage extends React.Component {
   componentDidMount () {
+    if (this.props.readyToLoad && !this.props.platforms.length) {
+      this.refreshList()
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.readyToLoad && !this.props.platforms.length) {
+      this.refreshList()
+    }
+  }
+
+  refreshList () {
     this.props.actions.fetchPlatforms()
   }
 
@@ -37,6 +49,7 @@ PlatformListPage.propTypes = {
   router: PropTypes.object,
   actions: PropTypes.object.isRequired,
   ajaxPending: PropTypes.bool.isRequired,
+  readyToLoad: PropTypes.bool.isRequired,
   platforms: PropTypes.array.isRequired
 }
 
