@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Segment } from 'semantic-ui-react'
+import { Button, Dimmer, Loader, Segment } from 'semantic-ui-react'
 
 import { localUrls } from '../../../../../globals/urls'
 
@@ -39,12 +39,17 @@ class PlatformDetailPage extends React.Component {
   }
 
   render () {
+    let working = !this.props.readyToLoad || this.props.ajaxPending
     return (
       <Segment className='segment-card'>
         <h2 className='page-title'>{this.props.platform.title}</h2>
 
         <hr />
         <Button onClick={e => this.handleBackClick(e)}>Back</Button>
+
+        <Dimmer inverted active={working}>
+          <Loader inverted>Working...</Loader>
+        </Dimmer>
       </Segment>
     )
   }
