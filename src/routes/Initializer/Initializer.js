@@ -33,6 +33,7 @@ export class Initializer extends React.Component {
 
 Initializer.propTypes = {
   router: PropTypes.object,
+  initActions: PropTypes.object.isRequired,
   accountActions: PropTypes.object.isRequired
 }
 

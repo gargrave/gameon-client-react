@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Container } from 'semantic-ui-react'
 
 import Header from '../../components/Header'
-import Initializer from '../../components/Initializer'
+import Initializer from '../../routes/Initializer'
 
 import '../../styles/main.scss'
 
