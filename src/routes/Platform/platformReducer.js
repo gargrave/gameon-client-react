@@ -2,8 +2,15 @@ import { types } from './platformActions'
 
 const initialState = {
   ajaxPending: false,
-  apiError: '',
+  errors: {
+    fetch: ''
+  },
   items: []
+}
+
+// pre-built messages for responding to various error states
+const err = {
+  fetch: 'There was an error fetching your Platforms.'
 }
 
 export default function counterReducer (state = initialState, action) {
@@ -23,6 +30,11 @@ export default function counterReducer (state = initialState, action) {
     case types.PLATFORMS_FETCH_SUCCESS:
       return Object.assign({}, state, {
         items: action.items
+      })
+
+    case types.PLATFORMS_FETCH_ERROR:
+      return Object.assign({}, state, {
+        errors: { fetch: err.fetch }
       })
 
     default:

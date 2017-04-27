@@ -6,8 +6,8 @@ import requests from '../../utils/requests'
 export const types = {
   PLATFORMS_AJAX_BEGIN: 'PLATFORMS_AJAX_BEGIN',
   PLATFORMS_AJAX_END: 'PLATFORMS_AJAX_END',
-  PLATFORMS_AJAX_ERROR: 'PLATFORMS_AJAX_ERROR',
-  PLATFORMS_FETCH_SUCCESS: 'PLATFORMS_FETCH_SUCCESS'
+  PLATFORMS_FETCH_SUCCESS: 'PLATFORMS_FETCH_SUCCESS',
+  PLATFORMS_FETCH_ERROR: 'PLATFORMS_FETCH_ERROR'
 }
 
 export const actions = {
@@ -37,7 +37,7 @@ export const actions = {
               .catch(err => {
                 dispatch({ type: types.PLATFORMS_AJAX_END })
                 dispatch({
-                  type: types.PLATFORMS_AJAX_ERROR,
+                  type: types.PLATFORMS_FETCH_ERROR,
                   err: 'err'
                 })
                 reject(err)
