@@ -4,7 +4,7 @@ const initialState = {
   initializing: true
 }
 
-export default function counterReducer (state = initialState, action) {
+export default function initializerReducer (state = initialState, action) {
   switch (action.type) {
 
     case types.INITIALIZER_BEGIN:

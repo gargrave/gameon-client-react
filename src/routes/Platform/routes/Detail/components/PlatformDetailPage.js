@@ -39,10 +39,13 @@ class PlatformDetailPage extends React.Component {
   }
 
   render () {
+    let { platform } = this.props
     let working = !this.props.readyToLoad || this.props.ajaxPending
     return (
       <Segment className='segment-card'>
-        <h2 className='page-title'>{this.props.platform.title}</h2>
+        <h2 className='page-title'>{platform.title}</h2>
+        <p><strong>Title: </strong>{platform.title}</p>
+        <p><strong>Added on: </strong>{platform.created}</p>
 
         <hr />
         <Button onClick={e => this.handleBackClick(e)}>Back</Button>

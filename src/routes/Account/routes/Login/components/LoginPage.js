@@ -37,8 +37,8 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit (event) {
-    const { login, fetchUser } = this.props.actions
     event.preventDefault()
+    const { login, fetchUser } = this.props.actions
     if (this.isValid()) {
       login(this.state.loginData)
         .then(() => {

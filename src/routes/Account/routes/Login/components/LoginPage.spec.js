@@ -40,10 +40,6 @@ describe('(Component) LoginPage', () => {
     submitBtn = wrapper.find('#login-submit')
   })
 
-  /*=============================================
-   = Basic view (no auth checks)
-   =============================================*/
-
   describe('Layout...', () => {
     test('should have a LoginForm.', () => {
       expect(form).toHaveLength(1)
