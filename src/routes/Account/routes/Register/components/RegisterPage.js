@@ -101,14 +101,15 @@ class RegisterPage extends React.Component {
   }
 
   render () {
+    const { apiError } = this.props
     return (
       <Segment className='segment-card'>
         <h2 className='page-title'>Register</h2>
 
-        {this.props.apiError &&
+        {apiError &&
           <Message negative>
             <Message.Header>Error</Message.Header>
-            <p>There was an error creating your account. Please try again.</p>
+            <p>{apiError}</p>
           </Message>
         }
 

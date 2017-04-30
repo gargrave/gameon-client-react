@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   ajaxPending: state.account.ajaxPending,
-  apiError: state.account.apiError
+  apiError: state.account.errors.register
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage)

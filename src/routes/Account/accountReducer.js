@@ -1,11 +1,14 @@
 import { types } from './accountActions'
 
+const getEmptyErrors = () => ({
+  register: '',
+  login: ''
+})
+
 const initialState = {
   ajaxPending: false,
   apiError: '',
-  errors: {
-    login: ''
-  },
+  errors: getEmptyErrors(),
   token: '',
   user: {},
   profile: {}
@@ -28,6 +31,7 @@ const parseProfileData = (profile) => ({
 
 // pre-built messages for responding to various error states
 const err = {
+  register: 'TODO: implement register() in accountActions.js',
   login: 'Could not log in with the provided credentials. Please try again.'
 }
 
@@ -42,10 +46,12 @@ export default function counterReducer (state = initialState, action) {
     case types.ACCOUNT_AJAX_END:
       return Object.assign({}, state, {
         ajaxPending: false,
-        apiError: ''
+        apiError: '',
+        errors: getEmptyErrors()
       })
 
     case types.ACCOUNT_AJAX_ERROR:
+      console.log('this should not be called!')
       return Object.assign({}, state, {
         ajaxPending: false,
         apiError: 'whatever'
@@ -60,7 +66,9 @@ export default function counterReducer (state = initialState, action) {
     // handle error responses from failed login attempts
     case types.ACCOUNT_LOGIN_ERROR:
       return Object.assign({}, state, {
-        errors: { login: err.login }
+        errors: Object.assign({}, state.errors, {
+          login: err.login
+        })
       })
 
     case types.ACCOUNT_LOGOUT:
@@ -74,6 +82,20 @@ export default function counterReducer (state = initialState, action) {
       return Object.assign({}, state, {
         user: parseUserData(action.user),
         profile: parseProfileData(action.profile)
+      })
+
+    case types.ACCOUNT_REGISTER_SUCCESS:
+      return Object.assign({}, state, {
+        errors: Object.assign({}, state.errors, {
+          register: ''
+        })
+      })
+
+    case types.ACCOUNT_REGISTER_ERROR:
+      return Object.assign({}, state, {
+        errors: Object.assign({}, state.errors, {
+          register: err.register
+        })
       })
 
     default:

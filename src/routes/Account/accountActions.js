@@ -10,6 +10,8 @@ export const types = {
   ACCOUNT_LOGIN: 'ACCOUNT_LOGIN',
   ACCOUNT_LOGIN_ERROR: 'ACCOUNT_LOGIN_ERROR',
   ACCOUNT_LOGOUT: 'ACCOUNT_LOGOUT',
+  ACCOUNT_REGISTER_SUCCESS: 'ACCOUNT_REGISTER_SUCCESS',
+  ACCOUNT_REGISTER_ERROR: 'ACCOUNT_REGISTER_ERROR',
   ACCOUNT_FETCH_USER_SUCCESS: 'ACCOUNT_FETCH_USER_SUCCESS',
   ACCOUNT_FETCH_USER_ERROR: 'ACCOUNT_FETCH_USER_ERROR'
 }
@@ -34,19 +36,13 @@ export const actions = {
                 resolve(res)
               } else {
                 dispatch({ type: types.ACCOUNT_AJAX_END })
-                dispatch({
-                  type: types.ACCOUNT_LOGIN_ERROR,
-                  err: 'err'
-                })
+                dispatch({ type: types.ACCOUNT_LOGIN_ERROR })
                 reject('Unknown error')
               }
             })
             .catch(err => {
               dispatch({ type: types.ACCOUNT_AJAX_END })
-              dispatch({
-                type: types.ACCOUNT_LOGIN_ERROR,
-                err
-              })
+              dispatch({ type: types.ACCOUNT_LOGIN_ERROR })
               reject(err)
             })
         }, 650)
@@ -127,10 +123,7 @@ export const actions = {
               }))
               .catch(err => {
                 dispatch({ type: types.ACCOUNT_AJAX_END })
-                dispatch({
-                  type: types.ACCOUNT_AJAX_ERROR,
-                  err: 'err'
-                })
+                dispatch({ type: types.ACCOUNT_AJAX_ERROR })
                 reject(err)
               })
           }, 400)
@@ -142,11 +135,9 @@ export const actions = {
   register () {
     return (dispatch, getState) => {
       return new Promise((resolve, reject) => {
-        dispatch({
-          type: types.ACCOUNT_AJAX_ERROR,
-          err: 'err'
-        })
-        reject('not implemented')
+        dispatch({ type: types.ACCOUNT_AJAX_END })
+        dispatch({ type: types.ACCOUNT_REGISTER_ERROR })
+        reject()
       })
     }
   },
