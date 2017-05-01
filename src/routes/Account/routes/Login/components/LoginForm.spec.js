@@ -4,19 +4,12 @@ import { mount } from 'enzyme'
 
 import LoginForm from './LoginForm'
 
-const handleChangeMock = jest.fn().mockImplementation((event) => {
-
-})
-
-const handleSubmitMock = jest.fn().mockImplementation((event) => {
-
-})
-
 describe('(Component) LoginForm', () => {
   let wrapper
   let props
   let userInput
   let passwordInput
+  let submitBtn
 
   beforeEach(() => {
     props = {
@@ -29,13 +22,14 @@ describe('(Component) LoginForm', () => {
         username: '',
         password: ''
       },
-      changed: handleChangeMock,
-      submitted: handleSubmitMock
+      changed: jest.fn(),
+      submitted: jest.fn()
     }
     wrapper = mount(<LoginForm {...props} />)
 
     userInput = wrapper.find('#login-username')
     passwordInput = wrapper.find('#login-password')
+    submitBtn = wrapper.find('#login-submit')
   })
 
   describe('props bindings...', () => {
@@ -61,6 +55,22 @@ describe('(Component) LoginForm', () => {
 
       expect(userInput.get(0).value).toEqual(expectedUser)
       expect(passwordInput.get(0).value).toEqual(expectedPass)
+    })
+  })
+
+  describe('events...', () => {
+    test('should fire the "onChange" handler when an input field changes.', () => {
+      expect(props.changed).toHaveBeenCalledTimes(0)
+      userInput.simulate('change')
+      expect(props.changed).toHaveBeenCalledTimes(1)
+      userInput.simulate('change')
+      expect(props.changed).toHaveBeenCalledTimes(2)
+    })
+
+    test('should fire the "submit" handler when submit button is clicked.', () => {
+      expect(props.submitted).toHaveBeenCalledTimes(0)
+      submitBtn.simulate('click')
+      expect(props.submitted).toHaveBeenCalledTimes(1)
     })
   })
 })
