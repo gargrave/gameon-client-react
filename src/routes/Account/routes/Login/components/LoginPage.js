@@ -40,13 +40,11 @@ class LoginPage extends React.Component {
     event.preventDefault()
     const { login, fetchUser } = this.props.actions
     if (this.isValid()) {
-      login(this.state.loginData)
-        .then(() => {
-          fetchUser()
-            .then(() => {
-              this.props.router.replace(localUrls.profile)
-            })
-        }, () => {})
+      login(this.state.loginData).then(() => {
+        fetchUser().then(() => {
+          this.props.router.replace(localUrls.profile)
+        })
+      })
     }
   }
 
