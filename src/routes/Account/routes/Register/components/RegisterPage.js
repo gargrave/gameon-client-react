@@ -16,14 +16,14 @@ class RegisterPage extends React.Component {
       registerData: {
         username: '',
         email: '',
-        password: '',
-        passwordConfirm: ''
+        password1: '',
+        password2: ''
       },
       validationErrors: {
         username: '',
         email: '',
-        password: '',
-        passwordConfirm: ''
+        password1: '',
+        password2: ''
       }
     }
   }
@@ -61,8 +61,8 @@ class RegisterPage extends React.Component {
     let validationErrors = {
       username: '',
       email: '',
-      password: '',
-      passwordConfirm: ''
+      password1: '',
+      password2: ''
     }
 
     const onError = (field, errMsg) => {
@@ -82,18 +82,18 @@ class RegisterPage extends React.Component {
       onError('email', valErrs.email)
     }
 
-    // validate password -> required, min 8 digits
-    if (validator.isEmpty(data.password)) {
-      onError('password', valErrs.required)
-    } else if (!validator.isLength(data.password, { min: 8 })) {
-      onError('password', valErrs.length(8))
+    // validate password1 -> required, min 8 digits
+    if (validator.isEmpty(data.password1)) {
+      onError('password1', valErrs.required)
+    } else if (!validator.isLength(data.password1, { min: 8 })) {
+      onError('password1', valErrs.length(8))
     }
 
-    // validate passwordConfirm -> required, must match password
-    if (validator.isEmpty(data.passwordConfirm)) {
-      onError('passwordConfirm', valErrs.required)
-    } else if (!validator.equals(data.passwordConfirm, data.password)) {
-      onError('passwordConfirm', valErrs.passwordConfirm)
+    // validate password2 -> required, must match password1
+    if (validator.isEmpty(data.password2)) {
+      onError('password2', valErrs.required)
+    } else if (!validator.equals(data.password2, data.password1)) {
+      onError('password2', valErrs.passwordConfirm)
     }
 
     this.setState({ validationErrors })

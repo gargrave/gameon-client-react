@@ -19,7 +19,7 @@ const RegisterForm = (props) => (
         }
         <input
           type='text'
-          id='username'
+          id='register-username'
           name='username'
           placeholder='Username'
           value={props.registerData.username}
@@ -35,7 +35,7 @@ const RegisterForm = (props) => (
         }
         <input
           type='email'
-          id='email'
+          id='register-email'
           name='email'
           placeholder='Email'
           value={props.registerData.email}
@@ -44,33 +44,33 @@ const RegisterForm = (props) => (
       </Form.Field>
 
       <Form.Field required
-        error={!!props.errors.password}>
+        error={!!props.errors.password1}>
         <label htmlFor='password'>Password</label>
-        {!!props.errors.password &&
-          <p className='form-error'>{props.errors.password}</p>
+        {!!props.errors.password1 &&
+          <p className='form-error'>{props.errors.password1}</p>
         }
         <input
           type='password'
-          id='password'
-          name='password'
+          id='register-password1'
+          name='password1'
           placeholder='Password'
-          value={props.registerData.password}
+          value={props.registerData.password1}
           onChange={props.changed}
         />
       </Form.Field>
 
       <Form.Field required
-        error={!!props.errors.passwordConfirm}>
-        <label htmlFor='passwordConfirm'>Re-enter Password</label>
-        {!!props.errors.passwordConfirm &&
-          <p className='form-error'>{props.errors.passwordConfirm}</p>
+        error={!!props.errors.password2}>
+        <label htmlFor='password2'>Re-enter Password</label>
+        {!!props.errors.password2 &&
+          <p className='form-error'>{props.errors.password2}</p>
         }
         <input
           type='password'
-          id='passwordConfirm'
-          name='passwordConfirm'
+          id='register-password2'
+          name='password2'
           placeholder='Re-enter Password'
-          value={props.registerData.passwordConfirm}
+          value={props.registerData.password2}
           onChange={props.changed}
         />
       </Form.Field>
@@ -78,6 +78,7 @@ const RegisterForm = (props) => (
       <Button
         primary
         type='submit'
+        id='register-submit'
         onClick={props.submitted}>
         Submit
       </Button>
