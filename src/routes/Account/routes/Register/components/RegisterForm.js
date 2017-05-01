@@ -15,7 +15,7 @@ const RegisterForm = (props) => (
         error={!!props.errors.username}>
         <label htmlFor='username'>Username</label>
         {!!props.errors.username &&
-          <p className='form-error'>{props.errors.username}</p>
+          <p className='form-error' id='register-username-error'>{props.errors.username}</p>
         }
         <input
           type='text'
@@ -31,7 +31,7 @@ const RegisterForm = (props) => (
         error={!!props.errors.email}>
         <label htmlFor='email'>Email</label>
         {!!props.errors.email &&
-          <p className='form-error'>{props.errors.email}</p>
+          <p className='form-error' id='register-email-error'>{props.errors.email}</p>
         }
         <input
           type='email'
@@ -47,7 +47,7 @@ const RegisterForm = (props) => (
         error={!!props.errors.password1}>
         <label htmlFor='password'>Password</label>
         {!!props.errors.password1 &&
-          <p className='form-error'>{props.errors.password1}</p>
+          <p className='form-error' id='register-password1-error'>{props.errors.password1}</p>
         }
         <input
           type='password'
@@ -63,7 +63,7 @@ const RegisterForm = (props) => (
         error={!!props.errors.password2}>
         <label htmlFor='password2'>Re-enter Password</label>
         {!!props.errors.password2 &&
-          <p className='form-error'>{props.errors.password2}</p>
+          <p className='form-error' id='register-password2-error'>{props.errors.password2}</p>
         }
         <input
           type='password'

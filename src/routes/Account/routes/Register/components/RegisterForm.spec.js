@@ -86,4 +86,39 @@ describe('(Component) RegisterForm', () => {
       expect(props.submitted).toHaveBeenCalledTimes(1)
     })
   })
+
+  describe('errors...', () => {
+    test('should not have any error messages by default.', () => {
+      let userErr = wrapper.find('#register-username-error')
+      let emailErr = wrapper.find('#register-email-error')
+      let password1Err = wrapper.find('#register-password1-error')
+      let password2Err = wrapper.find('#register-password2-error')
+      expect(userErr).toHaveLength(0)
+      expect(emailErr).toHaveLength(0)
+      expect(password1Err).toHaveLength(0)
+      expect(password2Err).toHaveLength(0)
+    })
+
+    test('should show error messages if it receives them in props.', () => {
+      // set new props and re-mount the component
+      props = Object.assign({}, props, {
+        errors: {
+          email: 'ONO EMAIL ERROR',
+          username: 'ONO USERNAME ERROR',
+          password1: 'ONO PASSWORD1 ERROR',
+          password2: 'ONO PASSWORD2 ERROR'
+        }
+      })
+      wrapper = mount(<RegisterForm {...props} />)
+
+      let userErr = wrapper.find('#register-username-error')
+      let emailErr = wrapper.find('#register-email-error')
+      let password1Err = wrapper.find('#register-password1-error')
+      let password2Err = wrapper.find('#register-password2-error')
+      expect(userErr).toHaveLength(1)
+      expect(emailErr).toHaveLength(1)
+      expect(password1Err).toHaveLength(1)
+      expect(password2Err).toHaveLength(1)
+    })
+  })
 })

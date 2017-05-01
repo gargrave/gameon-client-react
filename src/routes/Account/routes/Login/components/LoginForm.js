@@ -15,7 +15,9 @@ const LoginForm = (props) => (
         className='login-form'
         error={!!props.errors.username}>
         <label htmlFor='username'>Username</label>
-        {!!props.errors.username && <p className='form-error'>{props.errors.username}</p>}
+        {!!props.errors.username &&
+          <p className='form-error' id='login-username-error'>{props.errors.username}</p>
+        }
         <input
           type='text'
           id='login-username'
@@ -30,7 +32,9 @@ const LoginForm = (props) => (
       <Form.Field required
         error={!!props.errors.password}>
         <label htmlFor='password'>Password</label>
-        {!!props.errors.password && <p className='form-error'>{props.errors.password}</p>}
+        {!!props.errors.password &&
+          <p className='form-error' id='login-password-error'>{props.errors.password}</p>
+        }
         <input
           type='password'
           id='login-password'

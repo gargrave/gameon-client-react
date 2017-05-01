@@ -73,4 +73,29 @@ describe('(Component) LoginForm', () => {
       expect(props.submitted).toHaveBeenCalledTimes(1)
     })
   })
+
+  describe('errors...', () => {
+    test('should not have any error messages by default.', () => {
+      let userErr = wrapper.find('#login-username-error')
+      let passwordErr = wrapper.find('#login-password-error')
+      expect(userErr).toHaveLength(0)
+      expect(passwordErr).toHaveLength(0)
+    })
+
+    test('should show error messages if it receives them in props.', () => {
+      // set new props and re-mount the component
+      props = Object.assign({}, props, {
+        errors: {
+          username: 'ONO USERNAME ERROR',
+          password: 'ONO PASSWORD ERROR'
+        }
+      })
+      wrapper = mount(<LoginForm {...props} />)
+
+      let userErr = wrapper.find('#login-username-error')
+      let passwordErr = wrapper.find('#login-password-error')
+      expect(userErr).toHaveLength(1)
+      expect(passwordErr).toHaveLength(1)
+    })
+  })
 })
