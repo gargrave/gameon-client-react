@@ -5,7 +5,7 @@ import { Button, Dimmer, Form, Loader } from 'semantic-ui-react'
 
 const RegisterForm = (props) => (
   <div>
-    <Form>
+    <Form id='register-form'>
 
       <Dimmer inverted active={props.working}>
         <Loader inverted>Working...</Loader>

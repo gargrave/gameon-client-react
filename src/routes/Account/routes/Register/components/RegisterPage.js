@@ -104,7 +104,7 @@ class RegisterPage extends React.Component {
         <h2 className='page-title'>Register</h2>
 
         {apiError &&
-          <Message negative>
+          <Message negative id='register-api-error'>
             <Message.Header>Error</Message.Header>
             <p>{apiError}</p>
           </Message>
