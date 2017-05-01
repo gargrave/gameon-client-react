@@ -34,7 +34,7 @@ describe('(Component) LoginPage', () => {
     }
     wrapper = mount(<LoginPage {...props} />)
 
-    form = wrapper.find('.login-form')
+    form = wrapper.find('#login-form')
     userInput = wrapper.find('#login-username')
     passwordInput = wrapper.find('#login-password')
     submitBtn = wrapper.find('#login-submit')

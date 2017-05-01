@@ -5,14 +5,13 @@ import { Button, Dimmer, Form, Loader } from 'semantic-ui-react'
 
 const LoginForm = (props) => (
   <div>
-    <Form>
+    <Form id='login-form'>
 
       <Dimmer inverted active={props.working}>
         <Loader inverted>Working...</Loader>
       </Dimmer>
 
       <Form.Field required
-        className='login-form'
         error={!!props.errors.username}>
         <label htmlFor='username'>Username</label>
         {!!props.errors.username &&
