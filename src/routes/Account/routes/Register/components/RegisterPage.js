@@ -43,15 +43,12 @@ class RegisterPage extends React.Component {
   handleSubmit (event) {
     event.preventDefault()
     if (this.isValid()) {
-      this.props.actions.register(this.state.registerData)
-        .then(() => {
-          this.props.actions.fetchUser()
-            .then(() => {
-              this.props.router.replace(localUrls.profile)
-            })
-        }, err => {
-          this.apiError = err
+      const { register, fetchUser } = this.props.actions
+      register(this.state.registerData).then(() => {
+        fetchUser().then(() => {
+          this.props.router.replace(localUrls.profile)
         })
+      })
     }
   }
 

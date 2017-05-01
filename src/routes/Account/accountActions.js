@@ -37,13 +37,13 @@ export const actions = {
               } else {
                 dispatch({ type: types.ACCOUNT_AJAX_END })
                 dispatch({ type: types.ACCOUNT_LOGIN_ERROR })
-                reject('Unknown error')
+                reject()
               }
             })
-            .catch(err => {
+            .catch(() => {
               dispatch({ type: types.ACCOUNT_AJAX_END })
               dispatch({ type: types.ACCOUNT_LOGIN_ERROR })
-              reject(err)
+              reject()
             })
         }, 650)
       })
@@ -132,12 +132,34 @@ export const actions = {
     }
   },
 
-  register () {
+  register (regData) {
     return (dispatch, getState) => {
       return new Promise((resolve, reject) => {
-        dispatch({ type: types.ACCOUNT_AJAX_END })
-        dispatch({ type: types.ACCOUNT_REGISTER_ERROR })
-        reject()
+        const req = requests.axPost(apiUrls.register, regData)
+
+        dispatch({ type: types.ACCOUNT_AJAX_BEGIN })
+        axios(req)
+          .then(res => {
+            const token = res.data.key
+            if (token) {
+              localStorage.setItem('token', token)
+              dispatch({
+                type: types.ACCOUNT_LOGIN,
+                token
+              })
+              dispatch({ type: types.ACCOUNT_AJAX_END })
+              resolve()
+            } else {
+              dispatch({ type: types.ACCOUNT_AJAX_END })
+              dispatch({ type: types.ACCOUNT_LOGIN_ERROR })
+              reject()
+            }
+          })
+          .catch(() => {
+            dispatch({ type: types.ACCOUNT_AJAX_END })
+            dispatch({ type: types.ACCOUNT_REGISTER_ERROR })
+            reject()
+          })
       })
     }
   },
