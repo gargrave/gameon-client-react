@@ -9,7 +9,9 @@ export const types = {
   PLATFORMS_FETCH_SUCCESS: 'PLATFORMS_FETCH_SUCCESS',
   PLATFORMS_FETCH_ERROR: 'PLATFORMS_FETCH_ERROR',
   PLATFORMS_CREATE_SUCCESS: 'PLATFORMS_CREATE_SUCCESS',
-  PLATFORMS_CREATE_ERROR: 'PLATFORMS_CREATE_ERROR'
+  PLATFORMS_CREATE_ERROR: 'PLATFORMS_CREATE_ERROR',
+  PLATFORMS_UPDATE_SUCCESS: 'PLATFORMS_UPDATE_SUCCESS',
+  PLATFORMS_UPDATE_ERROR: 'PLATFORMS_UPDATE_ERROR'
 }
 
 export const actions = {
@@ -84,6 +86,20 @@ export const actions = {
               })
           }, 450)
         }
+      })
+    }
+  },
+
+  updatePlatform (platformData) {
+    return (dispatch, getState) => {
+      return new Promise((resolve, reject) => {
+        console.log('*****\nTODO: platformActions -> Implement Platform update functionality\n*****')
+        dispatch({ type: types.PLATFORMS_AJAX_BEGIN })
+        setTimeout(() => {
+          dispatch({ type: types.PLATFORMS_AJAX_END })
+          dispatch({ type: types.PLATFORMS_UPDATE_ERROR })
+          reject()
+        }, 500)
       })
     }
   }
