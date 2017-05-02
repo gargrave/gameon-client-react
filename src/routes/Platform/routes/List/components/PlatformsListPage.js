@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Segment } from 'semantic-ui-react'
+import { Button, Header, Segment } from 'semantic-ui-react'
+
+import { localUrls } from '../../../../../globals/urls'
 
 class PlatformListPage extends React.Component {
   componentDidMount () {
@@ -17,6 +19,11 @@ class PlatformListPage extends React.Component {
 
   refreshList () {
     this.props.actions.fetchPlatforms()
+  }
+
+  handleAddPlatformClick (event) {
+    event.preventDefault()
+    this.props.router.push(localUrls.platformCreate)
   }
 
   handlePlatformClick (event, id) {
@@ -38,7 +45,8 @@ class PlatformListPage extends React.Component {
   render () {
     return (
       <div>
-        <h2>My Platforms</h2>
+        <Header as='h2'>My Platforms</Header>
+        <Button primary onClick={e => this.handleAddPlatformClick(e)}>Add a Platform</Button>
         {this.props.platforms.map(p => this.renderPlatform(p))}
       </div>
     )
