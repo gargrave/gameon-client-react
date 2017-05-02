@@ -31,6 +31,7 @@ export default function counterReducer (state = initialState, action) {
         errors: errorsInitialState()
       })
 
+    // 'fetch' operations
     case types.PLATFORMS_FETCH_SUCCESS:
       return Object.assign({}, state, {
         items: action.items
@@ -40,6 +41,19 @@ export default function counterReducer (state = initialState, action) {
       return Object.assign({}, state, {
         errors: Object.assign({}, state.errors, {
           login: err.fetch
+        })
+      })
+
+    // create operations
+    case types.PLATFORMS_CREATE_SUCCESS:
+      return Object.assign({}, state, {
+        items: [...state.items, action.platform]
+      })
+
+    case types.PLATFORMS_CREATE_ERROR:
+      return Object.assign({}, state, {
+        errors: Object.assign({}, state.errors, {
+          login: err.create
         })
       })
 

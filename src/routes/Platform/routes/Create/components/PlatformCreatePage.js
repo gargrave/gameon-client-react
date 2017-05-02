@@ -37,6 +37,13 @@ class PlatformCreatePage extends React.Component {
   handleSubmit (event) {
     event.preventDefault()
     if (this.isValid()) {
+      const { router } = this.props
+      const { createPlatform } = this.props.actions
+      createPlatform(this.state.platformData)
+        .then(platform => {
+          router.push(`${localUrls.platformsList}/${platform.id}`)
+        }, () => {
+        })
       console.log('Valid Platform! Dispatch the action to send it to the API.')
     }
   }
