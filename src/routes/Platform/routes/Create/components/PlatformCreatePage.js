@@ -35,16 +35,14 @@ class PlatformCreatePage extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    const { router } = this.props
-    const { createPlatform } = this.props.actions
     const platform = this.state.platformData
     const val = validate(platform)
     this.setState({ validationErrors: val.errors })
 
     if (val.valid) {
-      createPlatform(platform)
+      this.props.actions.createPlatform(platform)
         .then(platform => {
-          router.push(`${localUrls.platformsList}/${platform.id}`)
+          this.props.router.push(`${localUrls.platformsList}/${platform.id}`)
         }, () => {
         })
     }

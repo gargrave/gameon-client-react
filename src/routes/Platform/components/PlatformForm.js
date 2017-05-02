@@ -40,7 +40,7 @@ const PlatformForm = (props) => (
         id='platform-submit'
         type='submit'
         onClick={props.onCancel}>
-        Back
+        Cancel
       </Button>
 
     </Form>
