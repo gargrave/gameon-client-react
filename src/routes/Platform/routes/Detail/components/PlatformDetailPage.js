@@ -1,12 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Dimmer, Loader, Segment } from 'semantic-ui-react'
+import { Dimmer, Loader, Message, Segment } from 'semantic-ui-react'
 
 import { localUrls } from '../../../../../globals/urls'
+import { validate } from '../../../utils/platformValidator'
 
 import RequireAuth from '../../../../../components/RequireAuth'
+import PlatformDetailView from './PlatformDetailView'
+import PlatformForm from '../../../components/PlatformForm'
 
 class PlatformDetailPage extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      editing: false,
+      platformData: {
+        title: ''
+      },
+      validationErrors: {
+        title: ''
+      }
+    }
+  }
+
   componentDidMount () {
     if (this.props.readyToLoad && !this.props.platform.id) {
       this.refreshPlatform()
@@ -21,16 +38,53 @@ class PlatformDetailPage extends React.Component {
 
   refreshPlatform () {
     const id = this.props.params.id
+    const router = this.props.router
 
     if (!id) {
-      this.goToListPage()
+      router.push(localUrls.platformsList)
     } else {
       this.props.actions.fetchPlatforms()
     }
   }
 
-  goToListPage () {
-    this.props.router.push(`/platforms`)
+  enterEditingState (event) {
+    event.preventDefault()
+    this.setState({
+      editing: true,
+      platformData: Object.assign({}, this.props.platform)
+    })
+  }
+
+  exitEditingState (event) {
+    event.preventDefault()
+    this.setState({ editing: false })
+  }
+
+  handleChange (event) {
+    event.preventDefault()
+    let platformData = Object.assign({}, this.state.platformData)
+    const key = event.target.name
+    const value = event.target.value
+
+    if (platformData.hasOwnProperty(key)) {
+      platformData[key] = value
+      this.setState({ platformData })
+    }
+  }
+
+  handleSubmit (event) {
+    event.preventDefault()
+    const platform = this.state.platformData
+    const val = validate(platform)
+    this.setState({ validationErrors: val.errors })
+
+    console.log('*****\nTODO: PlatformDetailPage -> Check equality before updating\n*****')
+    if (val.valid) {
+      this.props.actions.updatePlatform(platform)
+        .then(platform => {
+          this.exitEditingState()
+        }, () => { })
+    }
   }
 
   handleBackClick (event) {
@@ -39,16 +93,39 @@ class PlatformDetailPage extends React.Component {
   }
 
   render () {
-    let { platform } = this.props
-    let working = !this.props.readyToLoad || this.props.ajaxPending
+    const { ajaxPending, platform } = this.props
+    const { editing, platformData, validationErrors } = this.state
+    const working = !this.props.readyToLoad || this.props.ajaxPending
+
     return (
       <Segment className='segment-card'>
         <h2 className='page-title'>{platform.title}</h2>
-        <p><strong>Title: </strong>{platform.title}</p>
-        <p><strong>Added on: </strong>{platform.created}</p>
 
-        <hr />
-        <Button onClick={e => this.handleBackClick(e)}>Back</Button>
+        {editing && this.props.apiError &&
+          <Message negative className='platform-api-error'>
+            <Message.Header>Error</Message.Header>
+            <p>{this.props.apiError}</p>
+          </Message>
+        }
+
+        {!editing &&
+          <PlatformDetailView
+            platform={platform}
+            onEditClick={e => this.enterEditingState(e)}
+            onBackClick={e => this.handleBackClick(e)}
+          />
+        }
+
+        {editing &&
+          <PlatformForm
+            working={ajaxPending}
+            platformData={platformData}
+            errors={validationErrors}
+            onChange={e => this.handleChange(e)}
+            onSubmit={e => this.handleSubmit(e)}
+            onCancel={e => this.exitEditingState(e)}
+          />
+        }
 
         <Dimmer inverted active={working}>
           <Loader inverted>Working...</Loader>
@@ -62,6 +139,7 @@ PlatformDetailPage.propTypes = {
   router: PropTypes.object,
   params: PropTypes.object,
   actions: PropTypes.object.isRequired,
+  apiError: PropTypes.string.isRequired,
   ajaxPending: PropTypes.bool.isRequired,
   readyToLoad: PropTypes.bool.isRequired,
   platform: PropTypes.object.isRequired

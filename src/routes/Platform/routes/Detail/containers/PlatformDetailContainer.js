@@ -22,6 +22,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     initializing,
     loggedIn,
+    apiError: state.platforms.errors.update,
     ajaxPending: state.platforms.ajaxPending,
     readyToLoad,
     platform
