@@ -3,12 +3,14 @@ import { types } from './platformActions'
 // pre-built messages for responding to various error states
 const err = {
   fetch: 'There was an error fetching your Platforms.',
-  create: 'There was an error creating your Platform.'
+  create: 'There was an error creating your Platform.',
+  update: 'There was an error updating your Platform.'
 }
 
 const errorsInitialState = () => ({
   fetch: '',
-  create: ''
+  create: '',
+  update: ''
 })
 
 const initialState = {
@@ -40,7 +42,7 @@ export default function counterReducer (state = initialState, action) {
     case types.PLATFORMS_FETCH_ERROR:
       return Object.assign({}, state, {
         errors: Object.assign({}, state.errors, {
-          login: err.fetch
+          fetch: err.fetch
         })
       })
 
@@ -53,7 +55,20 @@ export default function counterReducer (state = initialState, action) {
     case types.PLATFORMS_CREATE_ERROR:
       return Object.assign({}, state, {
         errors: Object.assign({}, state.errors, {
-          login: err.create
+          create: err.create
+        })
+      })
+
+    // update operations
+    case types.PLATFORMS_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        items: [...state.items]
+      })
+
+    case types.PLATFORMS_UPDATE_ERROR:
+      return Object.assign({}, state, {
+        errors: Object.assign({}, state.errors, {
+          update: err.update
         })
       })
 
