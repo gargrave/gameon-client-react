@@ -1,10 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Message, Segment } from 'semantic-ui-react'
-import validator from 'validator'
 
-import { valErrs } from '../../../../../globals/errors'
 import { localUrls } from '../../../../../globals/urls'
+import { validate } from '../../../utils/platformValidator'
 
 import PlatformForm from '../../../components/PlatformForm'
 
@@ -36,37 +35,24 @@ class PlatformCreatePage extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    if (this.isValid()) {
-      const { router } = this.props
-      const { createPlatform } = this.props.actions
-      createPlatform(this.state.platformData)
+    const { router } = this.props
+    const { createPlatform } = this.props.actions
+    const platform = this.state.platformData
+    const val = validate(platform)
+    this.setState({ validationErrors: val.errors })
+
+    if (val.valid) {
+      createPlatform(platform)
         .then(platform => {
           router.push(`${localUrls.platformsList}/${platform.id}`)
         }, () => {
         })
-      console.log('Valid Platform! Dispatch the action to send it to the API.')
     }
   }
 
   handleCancel (event) {
     event.preventDefault()
     this.props.router.push(localUrls.platformsList)
-  }
-
-  isValid () {
-    let valid = true
-    let platformData = Object.assign({}, this.state.platformData)
-    let validationErrors = { title: '' }
-
-    // validate title -> required
-    validationErrors.title = ''
-    if (validator.isEmpty(platformData.title)) {
-      validationErrors.title = valErrs.required
-      valid = false
-    }
-
-    this.setState({ validationErrors })
-    return valid
   }
 
   render () {
