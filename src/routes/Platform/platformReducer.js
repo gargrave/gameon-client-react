@@ -62,7 +62,10 @@ export default function counterReducer (state = initialState, action) {
     // update operations
     case types.PLATFORMS_UPDATE_SUCCESS:
       return Object.assign({}, state, {
-        items: [...state.items]
+        items: [
+          ...state.items.filter(i => Number(i.id) !== Number(action.platform.id)),
+          action.platform
+        ]
       })
 
     case types.PLATFORMS_UPDATE_ERROR:

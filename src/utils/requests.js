@@ -32,5 +32,18 @@ export default {
     }
 
     return req
+  },
+
+  /**
+   * Builds a PUT AJAX request formatted for the Axios library.
+   */
+  axPut (url, data, token = null) {
+    let req = Object.assign({}, defaultRequest('put', url), { data })
+
+    if (token) {
+      req.headers['Authorization'] = `Token ${token}`
+    }
+
+    return req
   }
 }

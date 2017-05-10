@@ -93,13 +93,31 @@ export const actions = {
   updatePlatform (platformData) {
     return (dispatch, getState) => {
       return new Promise((resolve, reject) => {
-        console.log('*****\nTODO: platformActions -> Implement Platform update functionality\n*****')
-        dispatch({ type: types.PLATFORMS_AJAX_BEGIN })
-        setTimeout(() => {
-          dispatch({ type: types.PLATFORMS_AJAX_END })
-          dispatch({ type: types.PLATFORMS_UPDATE_ERROR })
-          reject()
-        }, 500)
+        const token = getState().account.token
+        if (!token) {
+          reject('invalid token')
+        } else {
+          dispatch({ type: types.PLATFORMS_AJAX_BEGIN })
+          setTimeout(() => {
+            const url = `${apiUrls.platforms}${platformData.id}`
+            const req = requests.axPut(url, platformData, token)
+            axios.request(req)
+              .then(res => {
+                const platform = res.data
+                dispatch({ type: types.PLATFORMS_AJAX_END })
+                dispatch({
+                  type: types.PLATFORMS_UPDATE_SUCCESS,
+                  platform
+                })
+                resolve(platform)
+              })
+              .catch(() => {
+                dispatch({ type: types.PLATFORMS_AJAX_END })
+                dispatch({ type: types.PLATFORMS_UPDATE_ERROR })
+                reject()
+              })
+          }, 500)
+        }
       })
     }
   }

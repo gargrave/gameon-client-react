@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Dimmer, Loader, Message, Segment } from 'semantic-ui-react'
 
 import { localUrls } from '../../../../../globals/urls'
+import platformBuilder from '../../../utils/platformBuilder'
 import { validate } from '../../../utils/platformValidator'
 
 import RequireAuth from '../../../../../components/RequireAuth'
@@ -56,7 +57,9 @@ class PlatformDetailPage extends React.Component {
   }
 
   exitEditingState (event) {
-    event.preventDefault()
+    if (event) {
+      event.preventDefault()
+    }
     this.setState({ editing: false })
   }
 
@@ -74,7 +77,7 @@ class PlatformDetailPage extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    const platform = this.state.platformData
+    const platform = platformBuilder.buildForUpdate(this.state.platformData)
     const val = validate(platform)
     this.setState({ validationErrors: val.errors })
 
