@@ -71,7 +71,7 @@ class PlatformDetailPage extends React.Component {
     const key = event.target.name
     const value = event.target.value
 
-    if (platformData.hasOwnProperty(key)) {
+    if (key in platformData) {
       platformData[key] = value
       this.setState({
         platformData,
