@@ -38,11 +38,20 @@ const PlatformForm = (props) => (
       </Button>
 
       <Button
-        id='platform-submit'
-        type='submit'
+        id='platform-cancel'
         onClick={props.onCancel}>
         Cancel
       </Button>
+
+      {props.onDelete &&
+        <Button
+          negative
+          id='platform-delete'
+          floated='right'
+          onClick={props.onDelete}>
+          Delete
+        </Button>
+      }
 
     </Form>
   </div>
@@ -55,7 +64,8 @@ PlatformForm.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired
+  onCancel: PropTypes.func.isRequired,
+  onDelete: PropTypes.func
 }
 
 export default PlatformForm
