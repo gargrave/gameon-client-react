@@ -6,6 +6,7 @@ import { localUrls } from '../../../../../globals/urls'
 import platformBuilder from '../../../utils/platformBuilder'
 import { compare, validate } from '../../../utils/platformValidator'
 
+import ConfirmModal from '../../../../../components/ConfirmModal'
 import RequireAuth from '../../../../../components/RequireAuth'
 import PlatformDetailView from './PlatformDetailView'
 import PlatformForm from '../../../components/PlatformForm'
@@ -17,6 +18,7 @@ class PlatformDetailPage extends React.Component {
     this.state = {
       editing: false,
       disableForm: false,
+      showDeleteModal: false,
       platformData: {
         title: ''
       },
@@ -99,6 +101,22 @@ class PlatformDetailPage extends React.Component {
     this.props.router.push(localUrls.platformsList)
   }
 
+  showDeleteModal (event) {
+    event.preventDefault()
+    this.setState({ showDeleteModal: true })
+  }
+
+  handleDelete (event) {
+    event.preventDefault()
+    this.closeDeleteDialog(event)
+  }
+
+  closeDeleteDialog (event) {
+    event.preventDefault()
+    this.setState({ showDeleteModal: false })
+    console.log('*****\nTODO: Implement Platform Delete functionality!\n*****')
+  }
+
   render () {
     const { ajaxPending, platform } = this.props
     const { editing, disableForm, platformData, validationErrors } = this.state
@@ -106,6 +124,14 @@ class PlatformDetailPage extends React.Component {
 
     return (
       <Segment className='segment-card'>
+        <ConfirmModal
+          headerText='Delete Platform'
+          contentText='Are you sure you want to delete this Platform?'
+          showing={this.state.showDeleteModal}
+          onConfirm={e => this.handleDelete(e)}
+          onCancel={e => this.closeDeleteDialog(e)}
+        />
+
         <h2 className='page-title'>{platform.title}</h2>
 
         {editing && this.props.apiError &&
@@ -132,6 +158,7 @@ class PlatformDetailPage extends React.Component {
             onChange={e => this.handleChange(e)}
             onSubmit={e => this.handleSubmit(e)}
             onCancel={e => this.exitEditingState(e)}
+            onDelete={e => this.showDeleteModal(e)}
           />
         }
 
