@@ -32,6 +32,7 @@ const PlatformForm = (props) => (
         primary
         id='platform-submit'
         type='submit'
+        disabled={props.disabled}
         onClick={props.onSubmit}>
         Submit
       </Button>
@@ -51,6 +52,7 @@ PlatformForm.propTypes = {
   working: PropTypes.bool.isRequired,
   platformData: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired

@@ -4,7 +4,7 @@ import { Dimmer, Loader, Message, Segment } from 'semantic-ui-react'
 
 import { localUrls } from '../../../../../globals/urls'
 import platformBuilder from '../../../utils/platformBuilder'
-import { validate } from '../../../utils/platformValidator'
+import { compare, validate } from '../../../utils/platformValidator'
 
 import RequireAuth from '../../../../../components/RequireAuth'
 import PlatformDetailView from './PlatformDetailView'
@@ -16,6 +16,7 @@ class PlatformDetailPage extends React.Component {
 
     this.state = {
       editing: false,
+      disableForm: false,
       platformData: {
         title: ''
       },
@@ -52,6 +53,7 @@ class PlatformDetailPage extends React.Component {
     event.preventDefault()
     this.setState({
       editing: true,
+      disableForm: true,
       platformData: Object.assign({}, this.props.platform)
     })
   }
@@ -71,7 +73,10 @@ class PlatformDetailPage extends React.Component {
 
     if (platformData.hasOwnProperty(key)) {
       platformData[key] = value
-      this.setState({ platformData })
+      this.setState({
+        platformData,
+        disableForm: compare(platformData, this.props.platform)
+      })
     }
   }
 
@@ -81,7 +86,6 @@ class PlatformDetailPage extends React.Component {
     const val = validate(platform)
     this.setState({ validationErrors: val.errors })
 
-    console.log('*****\nTODO: PlatformDetailPage -> Check equality before updating\n*****')
     if (val.valid) {
       this.props.actions.updatePlatform(platform)
         .then(platform => {
@@ -97,7 +101,7 @@ class PlatformDetailPage extends React.Component {
 
   render () {
     const { ajaxPending, platform } = this.props
-    const { editing, platformData, validationErrors } = this.state
+    const { editing, disableForm, platformData, validationErrors } = this.state
     const working = !this.props.readyToLoad || this.props.ajaxPending
 
     return (
@@ -124,6 +128,7 @@ class PlatformDetailPage extends React.Component {
             working={ajaxPending}
             platformData={platformData}
             errors={validationErrors}
+            disabled={disableForm}
             onChange={e => this.handleChange(e)}
             onSubmit={e => this.handleSubmit(e)}
             onCancel={e => this.exitEditingState(e)}
