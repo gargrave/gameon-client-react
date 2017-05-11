@@ -34,8 +34,10 @@ const GameForm = (props) => (
 
       <Form.Select
         label='Platform'
-        options={options(props.platforms)}
         placeholder='Platform'
+        options={options(props.platforms)}
+        value={props.gameData.platform}
+        onChange={props.onPlatformSelect}
       />
 
       <Form.Checkbox
@@ -85,6 +87,7 @@ GameForm.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onCheckChange: PropTypes.func.isRequired,
+  onPlatformSelect: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func

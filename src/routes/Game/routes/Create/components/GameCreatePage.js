@@ -14,7 +14,7 @@ class GameCreatePage extends React.Component {
     this.state = {
       gameData: {
         title: '',
-        platform: 0,
+        platform: undefined,
         finished: false
       },
       validationErrors: {
@@ -37,6 +37,13 @@ class GameCreatePage extends React.Component {
     }
   }
 
+  handlePlatformSelect (event, target) {
+    event.preventDefault()
+    let gameData = Object.assign({}, this.state.gameData)
+    gameData.platform = target.value
+    this.setState({ gameData })
+  }
+
   handleCheck (event, target) {
     event.preventDefault()
     let gameData = Object.assign({}, this.state.gameData)
@@ -54,13 +61,13 @@ class GameCreatePage extends React.Component {
     const val = validate(game)
     this.setState({ validationErrors: val.errors })
 
-    if (val.valid) {
-      this.props.actions.createGame(game)
-        .then(game => {
-          this.props.router.push(`${localUrls.gamesList}/${game.id}`)
-        }, () => {
-        })
-    }
+    // if (val.valid) {
+    //   this.props.actions.createGame(game)
+    //     .then(game => {
+    //       this.props.router.push(`${localUrls.gamesList}/${game.id}`)
+    //     }, () => {
+    //     })
+    // }
   }
 
   handleCancel (event) {
@@ -87,6 +94,7 @@ class GameCreatePage extends React.Component {
           errors={this.state.validationErrors}
           onChange={e => this.handleChange(e)}
           onCheckChange={(e, target) => this.handleCheck(e, target)}
+          onPlatformSelect={(e, target) => this.handlePlatformSelect(e, target)}
           onSubmit={e => this.handleSubmit(e)}
           onCancel={e => this.handleCancel(e)}
         />
