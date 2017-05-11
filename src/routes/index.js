@@ -4,6 +4,7 @@ import Home from './Home'
 import CounterRoute from './Counter'
 import AccountRoute from './Account'
 import PlatformRoute from './Platform'
+import GameRoute from './Game'
 
 export const createRoutes = (store) => ({
   path: '/',
@@ -13,11 +14,13 @@ export const createRoutes = (store) => ({
       const initializerReducer = require('./Initializer/initializerReducer').default
       const accountReducer = require('./Account/accountReducer').default
       const platformReducer = require('./Platform/platformReducer').default
+      const gameReducer = require('./Game/gameReducer').default
 
       /* go ahead and inject any reducers we know we will need */
       injectReducer(store, { key: 'app', reducer: initializerReducer })
       injectReducer(store, { key: 'account', reducer: accountReducer })
       injectReducer(store, { key: 'platforms', reducer: platformReducer })
+      injectReducer(store, { key: 'games', reducer: gameReducer })
 
       cb(null, CoreLayout)
     }, 'account')
@@ -26,7 +29,8 @@ export const createRoutes = (store) => ({
   childRoutes: [
     CounterRoute(store),
     AccountRoute(store),
-    PlatformRoute(store)
+    PlatformRoute(store),
+    GameRoute(store)
   ]
 })
 
