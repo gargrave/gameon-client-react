@@ -2,6 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Dimmer, Form, Loader } from 'semantic-ui-react'
 
+const options = (items) => {
+  return items.map(i => {
+    return { key: i.id, text: i.title, value: i.id }
+  })
+}
+
 const GameForm = (props) => (
   <div>
     <Form id='game-form'>
@@ -25,6 +31,20 @@ const GameForm = (props) => (
           onChange={props.onChange}
         />
       </Form.Field>
+
+      <Form.Select
+        label='Platform'
+        options={options(props.platforms)}
+        placeholder='Platform'
+      />
+
+      <Form.Checkbox
+        label='Finished'
+        id='game-finished'
+        name='finished'
+        defaultChecked={props.gameData.finished}
+        onChange={props.onCheckChange}
+      />
 
       <hr />
 
@@ -60,9 +80,11 @@ const GameForm = (props) => (
 GameForm.propTypes = {
   working: PropTypes.bool.isRequired,
   gameData: PropTypes.object.isRequired,
+  platforms: PropTypes.array.isRequired,
   errors: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
+  onCheckChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func

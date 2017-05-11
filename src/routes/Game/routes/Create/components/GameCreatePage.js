@@ -13,10 +13,14 @@ class GameCreatePage extends React.Component {
 
     this.state = {
       gameData: {
-        title: ''
+        title: '',
+        platform: 0,
+        finished: false
       },
       validationErrors: {
-        title: ''
+        title: '',
+        platform: '',
+        finished: ''
       }
     }
   }
@@ -29,6 +33,17 @@ class GameCreatePage extends React.Component {
 
     if (key in gameData) {
       gameData[key] = value
+      this.setState({ gameData })
+    }
+  }
+
+  handleCheck (event, target) {
+    event.preventDefault()
+    let gameData = Object.assign({}, this.state.gameData)
+    const key = target.name
+
+    if (key in gameData) {
+      gameData[key] = target.checked
       this.setState({ gameData })
     }
   }
@@ -68,8 +83,10 @@ class GameCreatePage extends React.Component {
         <GameForm
           working={this.props.ajaxPending}
           gameData={this.state.gameData}
+          platforms={this.props.platforms}
           errors={this.state.validationErrors}
           onChange={e => this.handleChange(e)}
+          onCheckChange={(e, target) => this.handleCheck(e, target)}
           onSubmit={e => this.handleSubmit(e)}
           onCancel={e => this.handleCancel(e)}
         />
@@ -83,7 +100,8 @@ GameCreatePage.propTypes = {
   actions: PropTypes.object.isRequired,
   apiError: PropTypes.string.isRequired,
   ajaxPending: PropTypes.bool.isRequired,
-  readyToLoad: PropTypes.bool.isRequired
+  readyToLoad: PropTypes.bool.isRequired,
+  platforms: PropTypes.array.isRequired
 }
 
 export default GameCreatePage

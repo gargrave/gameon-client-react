@@ -19,8 +19,9 @@ const mapStateToProps = (state) => {
     initializing,
     loggedIn,
     apiError: state.games.errors.create,
-    ajaxPending: state.games.ajaxPending,
-    readyToLoad
+    ajaxPending,
+    readyToLoad,
+    platforms: state.platforms.items
   }
 }
 
