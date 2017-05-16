@@ -1,5 +1,10 @@
 import { injectReducer } from '../store/reducers'
 
+import injectTapEventPlugin from 'react-tap-event-plugin'
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin()
+
 import Home from './Home'
 import CounterRoute from './Counter'
 import AccountRoute from './Account'
