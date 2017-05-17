@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Header, Segment } from 'semantic-ui-react'
+
+import Paper from 'material-ui/Paper'
+import RaisedButton from 'material-ui/RaisedButton'
 
 import { localUrls } from '../../../../../globals/urls'
 
@@ -33,20 +35,24 @@ class GameListPage extends React.Component {
 
   renderGame (p) {
     return (
-      <Segment
+      <Paper
         key={p.id}
-        className='segment-card pointer'
+        className='go-paper  pointer'
         onClick={e => this.handleGameClick(e, p.id)}>
         {p.title}
-      </Segment>
+      </Paper>
     )
   }
 
   render () {
     return (
       <div>
-        <Header as='h2'>My Games</Header>
-        <Button primary onClick={e => this.handleAddGameClick(e)}>Add a Game</Button>
+        <h2>My Games</h2>
+        <RaisedButton
+          primary
+          label='Add a Game'
+          onClick={e => this.handleAddGameClick(e)}
+        />
         {this.props.games.map(p => this.renderGame(p))}
       </div>
     )
