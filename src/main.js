@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
 
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
 // ========================================================
 // Store Instantiation
 // ========================================================
@@ -31,6 +33,7 @@ if (__DEV__) {
     const renderError = (error) => {
       const RedBox = require('redbox-react').default
 
+      injectTapEventPlugin()
       ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
     }
 
