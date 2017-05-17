@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Header, Segment } from 'semantic-ui-react'
+
+import Paper from 'material-ui/Paper'
+import RaisedButton from 'material-ui/RaisedButton'
 
 import { localUrls } from '../../../../../globals/urls'
 
@@ -33,20 +35,24 @@ class PlatformListPage extends React.Component {
 
   renderPlatform (p) {
     return (
-      <Segment
+      <Paper
         key={p.id}
-        className='segment-card pointer'
+        className='go-paper pointer'
         onClick={e => this.handlePlatformClick(e, p.id)}>
         {p.title}
-      </Segment>
+      </Paper>
     )
   }
 
   render () {
     return (
       <div>
-        <Header as='h2'>My Platforms</Header>
-        <Button primary onClick={e => this.handleAddPlatformClick(e)}>Add a Platform</Button>
+        <h2>My Platforms</h2>
+        <RaisedButton
+          primary
+          label='Add a Platform'
+          onClick={e => this.handleAddPlatformClick(e)}
+        />
         {this.props.platforms.map(p => this.renderPlatform(p))}
       </div>
     )
