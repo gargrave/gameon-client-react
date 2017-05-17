@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Dimmer, List, Loader, Segment } from 'semantic-ui-react'
+
+import { List, ListItem } from 'material-ui/List'
+import Paper from 'material-ui/Paper'
+import RaisedButton from 'material-ui/RaisedButton'
 
 import { localUrls } from '../../../../../globals/urls'
 
@@ -16,23 +19,29 @@ class ProfilePage extends React.Component {
   }
 
   render () {
+    const { profile, user } = this.props
     return (
-      <Segment className='segment-card'>
+      <Paper className='go-paper'>
         <h2 className='page-title'>Profile Page</h2>
 
-        <Dimmer inverted active={this.props.ajaxPending}>
-          <Loader inverted>Working...</Loader>
-        </Dimmer>
+        {this.props.ajaxPending && <p>Working...</p>}
 
         <List>
-          <List.Item><strong>Name:</strong> {this.props.profile.firstName} {this.props.profile.lastName}</List.Item>
-          <List.Item><strong>Username:</strong> {this.props.user.username}</List.Item>
-          <List.Item><strong>Email:</strong> {this.props.user.email}</List.Item>
-          <List.Item><strong>Joined on:</strong> {this.props.user.dateJoined}</List.Item>
+          <ListItem primaryText='Name'
+            secondaryText={`${profile.firstName} ${profile.lastName}`}
+          />
+          <ListItem primaryText='Username' secondaryText={user.username} />
+          <ListItem primaryText='Email' secondaryText={user.email} />
+          <ListItem primaryText='Joined on' secondaryText={user.dateJoined} />
         </List>
 
-        <Button onClick={e => this.handleLogout(e)}>Log Out</Button>
-      </Segment>
+        <RaisedButton
+          primary
+          id='profile-btn-logout'
+          label='Logout'
+          onClick={e => this.handleLogout(e)}
+        />
+      </Paper>
     )
   }
 }
