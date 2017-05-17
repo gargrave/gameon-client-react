@@ -77,26 +77,24 @@ class LoginPage extends React.Component {
 
   render () {
     return (
-      <div>
-        <Paper className='go-paper'>
-          <h2 className='page-title'>Login</h2>
+      <Paper className='go-paper'>
+        <h2 className='page-title'>Login</h2>
 
-          {this.props.apiError &&
-            <div id='login-api-error'>
-              <p>Login Error</p>
-              <p>{this.props.apiError}</p>
-            </div>
-          }
+        {this.props.apiError &&
+          <div id='login-api-error'>
+            <p>Login Error</p>
+            <p>{this.props.apiError}</p>
+          </div>
+        }
 
-          <LoginForm
-            working={this.props.ajaxPending}
-            loginData={this.state.loginData}
-            errors={this.state.validationErrors}
-            changed={e => this.handleChange(e)}
-            submitted={e => this.handleSubmit(e)}
-          />
-        </Paper>
-      </div>
+        <LoginForm
+          working={this.props.ajaxPending}
+          loginData={this.state.loginData}
+          errors={this.state.validationErrors}
+          changed={e => this.handleChange(e)}
+          submitted={e => this.handleSubmit(e)}
+        />
+      </Paper>
     )
   }
 }
