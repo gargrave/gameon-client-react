@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Message, Segment } from 'semantic-ui-react'
 import validator from 'validator'
+
+import Paper from 'material-ui/Paper'
 
 import { valErrs } from '../../../../../globals/errors'
 import { localUrls } from '../../../../../globals/urls'
@@ -76,24 +77,26 @@ class LoginPage extends React.Component {
 
   render () {
     return (
-      <Segment className='segment-card'>
-        <h2 className='page-title'>Login</h2>
+      <div>
+        <Paper className='go-paper'>
+          <h2 className='page-title'>Login</h2>
 
-        {this.props.apiError &&
-          <Message negative id='login-api-error'>
-            <Message.Header>Login Error</Message.Header>
-            <p>{this.props.apiError}</p>
-          </Message>
-        }
+          {this.props.apiError &&
+            <div id='login-api-error'>
+              <p>Login Error</p>
+              <p>{this.props.apiError}</p>
+            </div>
+          }
 
-        <LoginForm
-          working={this.props.ajaxPending}
-          loginData={this.state.loginData}
-          errors={this.state.validationErrors}
-          changed={e => this.handleChange(e)}
-          submitted={e => this.handleSubmit(e)}
-        />
-      </Segment>
+          <LoginForm
+            working={this.props.ajaxPending}
+            loginData={this.state.loginData}
+            errors={this.state.validationErrors}
+            changed={e => this.handleChange(e)}
+            submitted={e => this.handleSubmit(e)}
+          />
+        </Paper>
+      </div>
     )
   }
 }

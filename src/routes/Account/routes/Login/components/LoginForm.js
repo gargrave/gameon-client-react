@@ -1,58 +1,47 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Button, Dimmer, Form, Loader } from 'semantic-ui-react'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 
 const LoginForm = (props) => (
   <div>
-    <Form id='login-form'>
+    <form id='login-form'>
 
-      <Dimmer inverted active={props.working}>
-        <Loader inverted>Working...</Loader>
-      </Dimmer>
+      {props.working && <p>Working...</p>}
 
-      <Form.Field required
-        error={!!props.errors.username}>
-        <label htmlFor='username'>Username</label>
-        {!!props.errors.username &&
-          <p className='form-error' id='login-username-error'>{props.errors.username}</p>
-        }
-        <input
-          type='text'
-          id='login-username'
-          name='username'
-          placeholder='Username'
-          value={props.loginData.username}
-          onChange={props.changed}
-        />
+      <TextField
+        id='login-username'
+        name='username'
+        hintText='Username'
+        floatingLabelText='Username'
+        errorText={props.errors.username}
+        fullWidth
+        value={props.loginData.username}
+        onChange={props.changed}
+      />
 
-      </Form.Field>
+      <TextField
+        type='password'
+        id='login-password'
+        name='password'
+        hintText='Password'
+        floatingLabelText='Password'
+        errorText={props.errors.password}
+        fullWidth
+        value={props.loginData.password}
+        onChange={props.changed}
+      />
 
-      <Form.Field required
-        error={!!props.errors.password}>
-        <label htmlFor='password'>Password</label>
-        {!!props.errors.password &&
-          <p className='form-error' id='login-password-error'>{props.errors.password}</p>
-        }
-        <input
-          type='password'
-          id='login-password'
-          name='password'
-          placeholder='Password'
-          value={props.loginData.password}
-          onChange={props.changed}
-        />
-      </Form.Field>
-
-      <Button
+      <RaisedButton
         primary
         id='login-submit'
         type='submit'
-        onClick={props.submitted}>
-        Submit
-      </Button>
+        label='Submit'
+        onClick={props.submitted}
+      />
 
-    </Form>
+    </form>
   </div>
 )
 
