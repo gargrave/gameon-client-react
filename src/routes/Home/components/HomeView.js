@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button } from 'semantic-ui-react'
+import RaisedButton from 'material-ui/RaisedButton'
 
 export const HomeView = () => (
   <div>
     <h4>GameOn HomeView</h4>
-    <Button>Button!</Button>
+    <RaisedButton label='Button!' />
   </div>
 )
 
