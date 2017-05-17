@@ -1,6 +1,13 @@
+.go-btn {
+  margin: .5em;
+}
+
 .go-paper {
   max-width: $clampMaxWidth;
   margin-left: auto !important;
   margin-right: auto !important;
+  margin-top: 1em;
+  margin-bottom: 1em;
   padding: 1.2em;
+  border: 1px solid rgba(70, 70, 70, .15);
 }
