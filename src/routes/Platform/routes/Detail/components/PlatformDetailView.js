@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button } from 'semantic-ui-react'
+
+import RaisedButton from 'material-ui/RaisedButton'
 
 class PlatformDetailView extends React.Component {
   render () {
@@ -12,8 +13,19 @@ class PlatformDetailView extends React.Component {
         <p><strong>Added on: </strong>{platform.created}</p>
 
         <hr />
-        <Button primary onClick={onEditClick}>Edit</Button>
-        <Button onClick={onBackClick}>Back</Button>
+
+        <RaisedButton
+          primary
+          className='go-btn'
+          label='Edit'
+          onClick={onEditClick}
+        />
+
+        <RaisedButton
+          className='go-btn'
+          label='Back'
+          onClick={onBackClick}
+        />
       </div>
     )
   }
