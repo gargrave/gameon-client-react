@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Message, Segment } from 'semantic-ui-react'
 import validator from 'validator'
+
+import Paper from 'material-ui/Paper'
 
 import { valErrs } from '../../../../../globals/errors'
 import { localUrls } from '../../../../../globals/urls'
@@ -100,14 +101,14 @@ class RegisterPage extends React.Component {
   render () {
     const { apiError } = this.props
     return (
-      <Segment className='segment-card'>
+      <Paper className='go-paper'>
         <h2 className='page-title'>Register</h2>
 
-        {apiError &&
-          <Message negative id='register-api-error'>
-            <Message.Header>Error</Message.Header>
-            <p>{apiError}</p>
-          </Message>
+        {this.props.apiError &&
+          <div id='register-api-error'>
+            <p>Login Error</p>
+            <p>{this.props.apiError}</p>
+          </div>
         }
 
         <RegisterForm
@@ -117,7 +118,7 @@ class RegisterPage extends React.Component {
           changed={e => this.handleChange(e)}
           submitted={e => this.handleSubmit(e)}
         />
-      </Segment>
+      </Paper>
     )
   }
 }
