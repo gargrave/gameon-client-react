@@ -44,10 +44,6 @@ export class Header extends React.Component {
           Home
         </IndexLink>
         {' | '}
-        <Link to='/counter' activeClassName='route--active'>
-          Counter
-        </Link>
-        {' | '}
 
         {!loggedIn && this.renderNotLoggedInContent()}
         {loggedIn && this.renderLoggedInContent()}

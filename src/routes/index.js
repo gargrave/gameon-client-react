@@ -1,7 +1,6 @@
 import { injectReducer } from '../store/reducers'
 
 import Home from './Home'
-import CounterRoute from './Counter'
 import AccountRoute from './Account'
 import PlatformRoute from './Platform'
 import GameRoute from './Game'
@@ -27,7 +26,6 @@ export const createRoutes = (store) => ({
   },
   indexRoute: Home,
   childRoutes: [
-    CounterRoute(store),
     AccountRoute(store),
     PlatformRoute(store),
     GameRoute(store)
