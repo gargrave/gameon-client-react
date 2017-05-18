@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Dimmer, Loader, Message, Segment } from 'semantic-ui-react'
+
+import Paper from 'material-ui/Paper'
+import RaisedButton from 'material-ui/RaisedButton'
 
 import { localUrls } from '../../../../../globals/urls'
 import platformBuilder from '../../../utils/platformBuilder'
@@ -123,7 +125,7 @@ class PlatformDetailPage extends React.Component {
     const working = !this.props.readyToLoad || this.props.ajaxPending
 
     return (
-      <Segment className='segment-card'>
+      <Paper className='go-paper'>
         <ConfirmModal
           headerText='Delete Platform'
           contentText='Are you sure you want to delete this Platform?'
@@ -134,11 +136,13 @@ class PlatformDetailPage extends React.Component {
 
         <h2 className='page-title'>{platform.title}</h2>
 
+        {working && <p>Working...</p>}
+
         {editing && this.props.apiError &&
-          <Message negative className='platform-api-error'>
-            <Message.Header>Error</Message.Header>
+          <div id='platform-api-error'>
+            <p>Error</p>
             <p>{this.props.apiError}</p>
-          </Message>
+          </div>
         }
 
         {!editing &&
@@ -161,11 +165,7 @@ class PlatformDetailPage extends React.Component {
             onDelete={e => this.showDeleteModal(e)}
           />
         }
-
-        <Dimmer inverted active={working}>
-          <Loader inverted>Working...</Loader>
-        </Dimmer>
-      </Segment>
+      </Paper>
     )
   }
 }

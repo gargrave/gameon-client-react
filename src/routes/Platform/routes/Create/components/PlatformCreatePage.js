@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Message, Segment } from 'semantic-ui-react'
+
+import Paper from 'material-ui/Paper'
 
 import { localUrls } from '../../../../../globals/urls'
 import { validate } from '../../../utils/platformValidator'
@@ -55,14 +56,14 @@ class PlatformCreatePage extends React.Component {
 
   render () {
     return (
-      <Segment className='segment-card'>
+      <Paper className='go-paper'>
         <h2 className='page-title'>Add a Platform</h2>
 
         {this.props.apiError &&
-          <Message negative className='platform-api-error'>
-            <Message.Header>Error</Message.Header>
+          <div id='platform-api-error'>
+            <p>Error</p>
             <p>{this.props.apiError}</p>
-          </Message>
+          </div>
         }
 
         <PlatformForm
@@ -73,7 +74,7 @@ class PlatformCreatePage extends React.Component {
           onSubmit={e => this.handleSubmit(e)}
           onCancel={e => this.handleCancel(e)}
         />
-      </Segment>
+      </Paper>
     )
   }
 }
