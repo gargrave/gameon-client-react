@@ -25,7 +25,8 @@ const mapStateToProps = (state, ownProps) => {
     apiError: state.games.errors.update,
     ajaxPending: state.games.ajaxPending,
     readyToLoad,
-    game
+    game,
+    platforms: state.platforms.items
   }
 }
 

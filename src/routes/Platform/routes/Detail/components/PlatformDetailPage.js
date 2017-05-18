@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Paper from 'material-ui/Paper'
-import RaisedButton from 'material-ui/RaisedButton'
 
 import { localUrls } from '../../../../../globals/urls'
 import platformBuilder from '../../../utils/platformBuilder'
@@ -20,7 +19,7 @@ class PlatformDetailPage extends React.Component {
     this.state = {
       editing: false,
       disableForm: false,
-      showDeleteModal: false,
+      deleteDialogShowing: false,
       platformData: {
         title: ''
       },
@@ -103,20 +102,17 @@ class PlatformDetailPage extends React.Component {
     this.props.router.push(localUrls.platformsList)
   }
 
-  showDeleteModal (event) {
-    event.preventDefault()
-    this.setState({ showDeleteModal: true })
+  handleDelete (event) {
+    this.closeDeleteDialog(event)
+    console.log('*****\nTODO: Implement Platform Delete functionality!\n*****')
   }
 
-  handleDelete (event) {
-    event.preventDefault()
-    this.closeDeleteDialog(event)
+  showDeleteDialog (event) {
+    this.setState({ deleteDialogShowing: true })
   }
 
   closeDeleteDialog (event) {
-    event.preventDefault()
-    this.setState({ showDeleteModal: false })
-    console.log('*****\nTODO: Implement Platform Delete functionality!\n*****')
+    this.setState({ deleteDialogShowing: false })
   }
 
   render () {
@@ -127,11 +123,11 @@ class PlatformDetailPage extends React.Component {
     return (
       <Paper className='go-paper'>
         <ConfirmModal
-          headerText='Delete Platform'
-          contentText='Are you sure you want to delete this Platform?'
-          showing={this.state.showDeleteModal}
-          onConfirm={e => this.handleDelete(e)}
-          onCancel={e => this.closeDeleteDialog(e)}
+          title='Delete Platform'
+          content='Are you sure you want to delete this Platform?'
+          open={this.state.deleteDialogShowing}
+          handleConfirm={e => this.handleDelete(e)}
+          handleClose={e => this.closeDeleteDialog(e)}
         />
 
         <h2 className='page-title'>{platform.title}</h2>
@@ -162,7 +158,7 @@ class PlatformDetailPage extends React.Component {
             onChange={e => this.handleChange(e)}
             onSubmit={e => this.handleSubmit(e)}
             onCancel={e => this.exitEditingState(e)}
-            onDelete={e => this.showDeleteModal(e)}
+            onDelete={e => this.showDeleteDialog(e)}
           />
         }
       </Paper>
