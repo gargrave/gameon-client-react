@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Dimmer, Loader, Message, Segment } from 'semantic-ui-react'
+
+import Paper from 'material-ui/Paper'
 
 import { localUrls } from '../../../../../globals/urls'
 import gameBuilder from '../../../utils/gameBuilder'
@@ -123,7 +124,7 @@ class GameDetailPage extends React.Component {
     const working = !this.props.readyToLoad || this.props.ajaxPending
 
     return (
-      <Segment className='segment-card'>
+      <Paper className='go-paper'>
         <ConfirmModal
           headerText='Delete Game'
           contentText='Are you sure you want to delete this Game?'
@@ -134,11 +135,13 @@ class GameDetailPage extends React.Component {
 
         <h2 className='page-title'>{game.title}</h2>
 
+        {working && <p>Working...</p>}
+
         {editing && this.props.apiError &&
-          <Message negative className='game-api-error'>
-            <Message.Header>Error</Message.Header>
+          <div id='game-api-error'>
+            <p>Error</p>
             <p>{this.props.apiError}</p>
-          </Message>
+          </div>
         }
 
         {!editing &&
@@ -161,11 +164,7 @@ class GameDetailPage extends React.Component {
             onDelete={e => this.showDeleteModal(e)}
           />
         }
-
-        <Dimmer inverted active={working}>
-          <Loader inverted>Working...</Loader>
-        </Dimmer>
-      </Segment>
+      </Paper>
     )
   }
 }

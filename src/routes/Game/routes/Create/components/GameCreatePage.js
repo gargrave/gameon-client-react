@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Message, Segment } from 'semantic-ui-react'
+
+import Paper from 'material-ui/Paper'
 
 import { localUrls } from '../../../../../globals/urls'
 import { validate } from '../../../utils/gameValidator'
@@ -76,14 +77,14 @@ class GameCreatePage extends React.Component {
 
   render () {
     return (
-      <Segment className='segment-card'>
+      <Paper className='go-paper'>
         <h2 className='page-title'>Add a Game</h2>
 
         {this.props.apiError &&
-          <Message negative className='game-api-error'>
-            <Message.Header>Error</Message.Header>
+          <div id='game-api-error'>
+            <p>Error</p>
             <p>{this.props.apiError}</p>
-          </Message>
+          </div>
         }
 
         <GameForm
@@ -97,7 +98,7 @@ class GameCreatePage extends React.Component {
           onSubmit={e => this.handleSubmit(e)}
           onCancel={e => this.handleCancel(e)}
         />
-      </Segment>
+      </Paper>
     )
   }
 }
