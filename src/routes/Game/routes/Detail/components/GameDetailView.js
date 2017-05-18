@@ -10,6 +10,7 @@ class GameDetailView extends React.Component {
     return (
       <div>
         <p><strong>Title: </strong>{game.title}</p>
+        <p><strong>Platform: </strong>{game.platform.title}</p>
         <p><strong>Added on: </strong>{game.created}</p>
 
         <hr />
