@@ -1,81 +1,79 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Dimmer, Form, Loader } from 'semantic-ui-react'
 
-const options = (items) => {
-  return items.map(i => {
-    return { key: i.id, text: i.title, value: i.id }
-  })
+import Checkbox from 'material-ui/Checkbox'
+import MenuItem from 'material-ui/MenuItem'
+import RaisedButton from 'material-ui/RaisedButton'
+import SelectField from 'material-ui/SelectField'
+import TextField from 'material-ui/TextField'
+
+const renderPlatformOption = (p) => {
+  return <MenuItem key={p.id} value={p.id} primaryText={p.title} />
 }
 
 const GameForm = (props) => (
   <div>
-    <Form id='game-form'>
+    <form id='game-form'>
 
-      <Dimmer inverted active={props.working}>
-        <Loader inverted>Working...</Loader>
-      </Dimmer>
+      {props.working && <p>Working...</p>}
 
-      <Form.Field required
-        error={!!props.errors.title}>
-        <label htmlFor='title'>Title</label>
-        {!!props.errors.title &&
-          <p className='form-error' id='game-title-error'>{props.errors.title}</p>
-        }
-        <input
-          type='text'
-          id='game-title'
-          name='title'
-          placeholder='title'
-          value={props.gameData.title}
-          onChange={props.onChange}
-        />
-      </Form.Field>
-
-      <Form.Select
-        label='Platform'
-        placeholder='Platform'
-        options={options(props.platforms)}
-        value={props.gameData.platform}
-        onChange={props.onPlatformSelect}
+      <TextField
+        fullWidth
+        required
+        id='game-input-title'
+        name='title'
+        hintText='Title'
+        floatingLabelText='Title'
+        errorText={props.errors.title}
+        value={props.gameData.title}
+        onChange={props.onChange}
       />
 
-      <Form.Checkbox
+      <SelectField
+        fullWidth
+        floatingLabelText='Platform'
+        value={props.gameData.platform}
+        onChange={props.onSelect}
+      >
+        {props.platforms.map(p => renderPlatformOption(p))}
+      </SelectField>
+
+      <Checkbox
         label='Finished'
-        id='game-finished'
+        id='game-input-finished'
         name='finished'
         defaultChecked={props.gameData.finished}
-        onChange={props.onCheckChange}
+        onCheck={props.onCheck}
       />
 
       <hr />
 
-      <Button
+      <RaisedButton
         primary
-        id='game-submit'
+        id='game-btn-submit'
+        className='go-btn'
         type='submit'
+        label='Submit'
         disabled={props.disabled}
-        onClick={props.onSubmit}>
-        Submit
-      </Button>
+        onClick={props.onSubmit}
+      />
 
-      <Button
-        id='game-cancel'
-        onClick={props.onCancel}>
-        Cancel
-      </Button>
+      <RaisedButton
+        id='game-submit'
+        className='go-btn'
+        label='Cancel'
+        onClick={props.onCancel}
+      />
 
       {props.onDelete &&
-        <Button
-          negative
-          id='game-delete'
-          floated='right'
-          onClick={props.onDelete}>
-          Delete
-        </Button>
+        <RaisedButton
+          id='game-btn-delete'
+          className='go-btn'
+          label='Delete'
+          onClick={props.onDelete}
+        />
       }
-
-    </Form>
+    </form>
   </div>
 )
 
@@ -86,8 +84,8 @@ GameForm.propTypes = {
   errors: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
-  onCheckChange: PropTypes.func.isRequired,
-  onPlatformSelect: PropTypes.func.isRequired,
+  onCheck: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func

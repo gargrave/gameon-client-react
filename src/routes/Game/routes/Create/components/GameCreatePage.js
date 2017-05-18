@@ -26,7 +26,6 @@ class GameCreatePage extends React.Component {
   }
 
   handleChange (event) {
-    event.preventDefault()
     let gameData = Object.assign({}, this.state.gameData)
     const key = event.target.name
     const value = event.target.value
@@ -37,20 +36,18 @@ class GameCreatePage extends React.Component {
     }
   }
 
-  handlePlatformSelect (event, target) {
-    event.preventDefault()
+  handleSelect (event, key, payload) {
     let gameData = Object.assign({}, this.state.gameData)
-    gameData.platform = target.value
+    gameData.platform = payload
     this.setState({ gameData })
   }
 
-  handleCheck (event, target) {
-    event.preventDefault()
+  handleCheck (event, checked) {
     let gameData = Object.assign({}, this.state.gameData)
-    const key = target.name
+    const key = event.target.name
 
     if (key in gameData) {
-      gameData[key] = target.checked
+      gameData[key] = checked
       this.setState({ gameData })
     }
   }
@@ -60,6 +57,8 @@ class GameCreatePage extends React.Component {
     const game = this.state.gameData
     const val = validate(game)
     this.setState({ validationErrors: val.errors })
+    console.log('game data:')
+    console.log(game)
 
     // if (val.valid) {
     //   this.props.actions.createGame(game)
@@ -93,8 +92,8 @@ class GameCreatePage extends React.Component {
           platforms={this.props.platforms}
           errors={this.state.validationErrors}
           onChange={e => this.handleChange(e)}
-          onCheckChange={(e, target) => this.handleCheck(e, target)}
-          onPlatformSelect={(e, target) => this.handlePlatformSelect(e, target)}
+          onCheck={(e, checked) => this.handleCheck(e, checked)}
+          onSelect={(e, key, payload) => this.handleSelect(e, key, payload)}
           onSubmit={e => this.handleSubmit(e)}
           onCancel={e => this.handleCancel(e)}
         />
