@@ -7,7 +7,7 @@ import { localUrls } from '../../../../../globals/urls'
 import platformBuilder from '../../../utils/platformBuilder'
 import { compare, validate } from '../../../utils/platformValidator'
 
-import ConfirmModal from '../../../../../components/ConfirmModal'
+import ConfirmDialog from '../../../../../components/ConfirmDialog'
 import RequireAuth from '../../../../../components/RequireAuth'
 import PlatformDetailView from './PlatformDetailView'
 import PlatformForm from '../../../components/PlatformForm'
@@ -122,7 +122,7 @@ class PlatformDetailPage extends React.Component {
 
     return (
       <Paper className='go-paper'>
-        <ConfirmModal
+        <ConfirmDialog
           title='Delete Platform'
           content='Are you sure you want to delete this Platform?'
           open={this.state.deleteDialogShowing}

@@ -7,7 +7,7 @@ import { localUrls } from '../../../../../globals/urls'
 import gameBuilder from '../../../utils/gameBuilder'
 import { compare, validate } from '../../../utils/gameValidator'
 
-import ConfirmModal from '../../../../../components/ConfirmModal'
+import ConfirmDialog from '../../../../../components/ConfirmDialog'
 import RequireAuth from '../../../../../components/RequireAuth'
 import GameDetailView from './GameDetailView'
 import GameForm from '../../../components/GameForm'
@@ -145,7 +145,7 @@ class GameDetailPage extends React.Component {
 
     return (
       <Paper className='go-paper'>
-        <ConfirmModal
+        <ConfirmDialog
           title='Delete Game'
           content='Are you sure you want to delete this Game?'
           open={this.state.deleteDialogShowing}
