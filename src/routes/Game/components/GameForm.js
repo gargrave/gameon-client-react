@@ -59,7 +59,7 @@ const GameForm = (props) => (
       />
 
       <RaisedButton
-        id='game-submit'
+        id='game-btn-cancel'
         className='go-btn'
         label='Cancel'
         onClick={props.onCancel}
@@ -67,6 +67,7 @@ const GameForm = (props) => (
 
       {props.onDelete &&
         <RaisedButton
+          secondary
           id='game-btn-delete'
           className='go-btn'
           label='Delete'

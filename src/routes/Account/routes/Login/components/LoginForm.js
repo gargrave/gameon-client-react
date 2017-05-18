@@ -11,24 +11,24 @@ const LoginForm = (props) => (
       {props.working && <p>Working...</p>}
 
       <TextField
+        fullWidth
         id='login-username'
         name='username'
         hintText='Username'
         floatingLabelText='Username'
         errorText={props.errors.username}
-        fullWidth
         value={props.loginData.username}
         onChange={props.changed}
       />
 
       <TextField
         type='password'
+        fullWidth
         id='login-password'
         name='password'
         hintText='Password'
         floatingLabelText='Password'
         errorText={props.errors.password}
-        fullWidth
         value={props.loginData.password}
         onChange={props.changed}
       />
