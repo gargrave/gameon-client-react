@@ -54,10 +54,14 @@ class GameDetailPage extends React.Component {
 
   enterEditingState (event) {
     event.preventDefault()
+    const platform = this.props.game.platform.id
     this.setState({
       editing: true,
       disableForm: true,
-      gameData: Object.assign({}, this.props.game)
+      gameData: Object.assign({},
+        this.props.game,
+        { platform }
+      )
     })
   }
 
