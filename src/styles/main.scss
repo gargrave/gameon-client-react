@@ -1,5 +1,7 @@
 @import 'base';
 @import '~normalize.css/normalize';
+@import "~bulma/sass/utilities/_all";
+@import "~bulma/sass/grid/columns";
 
 // Some best-practice CSS that's useful for most apps
 // Just remove them if they're not what you want
@@ -23,6 +25,7 @@ body {
 
 .main-content-area {
   padding: 20px;
+  text-align: center;
 }
 
 .page-title {
