@@ -1,89 +1,71 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Button, Dimmer, Form, Loader } from 'semantic-ui-react'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 
 const RegisterForm = (props) => (
   <div>
-    <Form id='register-form'>
+    <form id='register-form'>
 
-      <Dimmer inverted active={props.working}>
-        <Loader inverted>Working...</Loader>
-      </Dimmer>
+      {props.working && <p>Working...</p>}
 
-      <Form.Field required
-        error={!!props.errors.username}>
-        <label htmlFor='username'>Username</label>
-        {!!props.errors.username &&
-          <p className='form-error' id='register-username-error'>{props.errors.username}</p>
-        }
-        <input
-          type='text'
-          id='register-username'
-          name='username'
-          placeholder='Username'
-          value={props.registerData.username}
-          onChange={props.changed}
-        />
-      </Form.Field>
+      <TextField
+        fullWidth
+        id='register-input-username'
+        name='username'
+        hintText='Username'
+        floatingLabelText='Username'
+        errorText={props.errors.username}
+        value={props.registerData.username}
+        onChange={props.changed}
+      />
 
-      <Form.Field required
-        error={!!props.errors.email}>
-        <label htmlFor='email'>Email</label>
-        {!!props.errors.email &&
-          <p className='form-error' id='register-email-error'>{props.errors.email}</p>
-        }
-        <input
-          type='email'
-          id='register-email'
-          name='email'
-          placeholder='Email'
-          value={props.registerData.email}
-          onChange={props.changed}
-        />
-      </Form.Field>
+      <TextField
+        fullWidth
+        type='email'
+        id='register-input-email'
+        name='email'
+        hintText='Email'
+        floatingLabelText='Email'
+        errorText={props.errors.email}
+        value={props.registerData.email}
+        onChange={props.changed}
+      />
 
-      <Form.Field required
-        error={!!props.errors.password1}>
-        <label htmlFor='password'>Password</label>
-        {!!props.errors.password1 &&
-          <p className='form-error' id='register-password1-error'>{props.errors.password1}</p>
-        }
-        <input
-          type='password'
-          id='register-password1'
-          name='password1'
-          placeholder='Password'
-          value={props.registerData.password1}
-          onChange={props.changed}
-        />
-      </Form.Field>
+      <TextField
+        fullWidth
+        type='password'
+        id='register-input-password1'
+        name='password1'
+        hintText='Password'
+        floatingLabelText='Password'
+        errorText={props.errors.password1}
+        value={props.registerData.password1}
+        onChange={props.changed}
+      />
 
-      <Form.Field required
-        error={!!props.errors.password2}>
-        <label htmlFor='password2'>Re-enter Password</label>
-        {!!props.errors.password2 &&
-          <p className='form-error' id='register-password2-error'>{props.errors.password2}</p>
-        }
-        <input
-          type='password'
-          id='register-password2'
-          name='password2'
-          placeholder='Re-enter Password'
-          value={props.registerData.password2}
-          onChange={props.changed}
-        />
-      </Form.Field>
+      <TextField
+        fullWidth
+        type='password'
+        id='register-input-password2'
+        name='password2'
+        hintText='Confirm Password'
+        floatingLabelText='Confirm Password'
+        errorText={props.errors.password2}
+        value={props.registerData.password2}
+        onChange={props.changed}
+      />
 
-      <Button
+      <RaisedButton
         primary
+        id='register-btn-submit'
+        className='go-btn'
         type='submit'
-        id='register-submit'
-        onClick={props.submitted}>
-        Submit
-      </Button>
-
-    </Form>
+        label='Submit'
+        onClick={props.submitted}
+      />
+    </form>
   </div>
 )
 
