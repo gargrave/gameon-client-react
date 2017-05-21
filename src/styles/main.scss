@@ -23,6 +23,31 @@ body {
   box-sizing: inherit;
 }
 
+.alert {
+  padding: 6px;
+  margin-bottom: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-align: left;
+
+  p.alert-content {
+    margin: .4em;
+    font-size: .9em;
+  }
+
+  p.alert-title {
+    margin: .4em;
+    font-weight: bold;
+    font-size: 1em;
+  }
+}
+
+.alert-error {
+  color: $errTextColor;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
 .main-content-area {
   padding: 20px;
   text-align: center;
