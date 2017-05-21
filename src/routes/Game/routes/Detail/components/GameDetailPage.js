@@ -9,6 +9,7 @@ import { compare, validate } from '../../../utils/gameValidator'
 
 import ConfirmDialog from '../../../../../components/ConfirmDialog'
 import RequireAuth from '../../../../../components/RequireAuth'
+import Alert from '../../../../../components/Common/Alert'
 import GameDetailView from './GameDetailView'
 import GameForm from '../../../components/GameForm'
 
@@ -162,10 +163,11 @@ class GameDetailPage extends React.Component {
         {working && <p>Working...</p>}
 
         {editing && this.props.apiError &&
-          <div id='game-api-error'>
-            <p>Error</p>
-            <p>{this.props.apiError}</p>
-          </div>
+          <Alert
+            id='game-api-error'
+            title='Error'
+            message={this.props.apiError}
+          />
         }
 
         {!editing &&

@@ -9,6 +9,7 @@ import { compare, validate } from '../../../utils/platformValidator'
 
 import ConfirmDialog from '../../../../../components/ConfirmDialog'
 import RequireAuth from '../../../../../components/RequireAuth'
+import Alert from '../../../../../components/Common/Alert'
 import PlatformDetailView from './PlatformDetailView'
 import PlatformForm from '../../../components/PlatformForm'
 
@@ -135,10 +136,11 @@ class PlatformDetailPage extends React.Component {
         {working && <p>Working...</p>}
 
         {editing && this.props.apiError &&
-          <div id='platform-api-error'>
-            <p>Error</p>
-            <p>{this.props.apiError}</p>
-          </div>
+          <Alert
+            id='platform-api-error'
+            title='Error'
+            message={this.props.apiError}
+          />
         }
 
         {!editing &&

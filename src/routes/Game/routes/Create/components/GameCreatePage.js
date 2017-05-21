@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper'
 import { localUrls } from '../../../../../globals/urls'
 import { validate } from '../../../utils/gameValidator'
 
+import Alert from '../../../../../components/Common/Alert'
 import GameForm from '../../../components/GameForm'
 
 class GameCreatePage extends React.Component {
@@ -81,10 +82,11 @@ class GameCreatePage extends React.Component {
         <h2 className='page-title'>Add a Game</h2>
 
         {this.props.apiError &&
-          <div id='game-api-error'>
-            <p>Error</p>
-            <p>{this.props.apiError}</p>
-          </div>
+          <Alert
+            id='game-api-error'
+            title='Error'
+            message={this.props.apiError}
+          />
         }
 
         <GameForm

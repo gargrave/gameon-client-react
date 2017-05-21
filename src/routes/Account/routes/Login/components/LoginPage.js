@@ -7,6 +7,7 @@ import Paper from 'material-ui/Paper'
 import { valErrs } from '../../../../../globals/errors'
 import { localUrls } from '../../../../../globals/urls'
 
+import Alert from '../../../../../components/Common/Alert'
 import LoginForm from './LoginForm'
 
 class LoginPage extends React.Component {
@@ -44,8 +45,8 @@ class LoginPage extends React.Component {
       login(this.state.loginData).then(() => {
         fetchUser().then(() => {
           this.props.router.replace(localUrls.profile)
-        })
-      })
+        }, () => {})
+      }, () => {})
     }
   }
 
@@ -81,10 +82,11 @@ class LoginPage extends React.Component {
         <h2 className='page-title'>Login</h2>
 
         {this.props.apiError &&
-          <div id='login-api-error'>
-            <p>Login Error</p>
-            <p>{this.props.apiError}</p>
-          </div>
+          <Alert
+            id='login-api-error'
+            title='Login Error'
+            message={this.props.apiError}
+          />
         }
 
         <LoginForm

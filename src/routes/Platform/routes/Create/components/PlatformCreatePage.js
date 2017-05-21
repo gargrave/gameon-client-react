@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper'
 import { localUrls } from '../../../../../globals/urls'
 import { validate } from '../../../utils/platformValidator'
 
+import Alert from '../../../../../components/Common/Alert'
 import PlatformForm from '../../../components/PlatformForm'
 
 class PlatformCreatePage extends React.Component {
@@ -60,10 +61,11 @@ class PlatformCreatePage extends React.Component {
         <h2 className='page-title'>Add a Platform</h2>
 
         {this.props.apiError &&
-          <div id='platform-api-error'>
-            <p>Error</p>
-            <p>{this.props.apiError}</p>
-          </div>
+          <Alert
+            id='platform-api-error'
+            title='Error'
+            message={this.props.apiError}
+          />
         }
 
         <PlatformForm
