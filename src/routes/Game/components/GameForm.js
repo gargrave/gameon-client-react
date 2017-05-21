@@ -7,6 +7,8 @@ import RaisedButton from 'material-ui/RaisedButton'
 import SelectField from 'material-ui/SelectField'
 import TextField from 'material-ui/TextField'
 
+import GameDatesEditor from '../components/GameDatesEditor'
+
 const renderPlatformOption = (p) => {
   return <MenuItem key={p.id} value={p.id} primaryText={p.title} />
 }
@@ -44,6 +46,12 @@ const GameForm = (props) => (
         name='finished'
         defaultChecked={props.gameData.finished}
         onCheck={props.onCheck}
+      />
+
+      <GameDatesEditor
+        working={props.working}
+        gameData={props.gameData}
+        onDateSelect={props.onDateSelect}
       />
 
       <hr />
@@ -87,6 +95,7 @@ GameForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onCheck: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
+  onDateSelect: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func

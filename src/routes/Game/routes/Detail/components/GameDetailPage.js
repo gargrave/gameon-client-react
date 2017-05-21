@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 import Paper from 'material-ui/Paper'
 
@@ -109,6 +110,19 @@ class GameDetailPage extends React.Component {
     }
   }
 
+  handleDateSelect (event, date) {
+    let gameData = Object.assign({}, this.state.gameData)
+    let dateStr = moment(date).format('YYYY-MM-DD')
+
+    if (!gameData.dates.includes(dateStr)) {
+      gameData.dates.push(dateStr)
+      this.setState({
+        gameData,
+        disableForm: compare(gameData, this.props.game)
+      })
+    }
+  }
+
   handleSubmit (event) {
     event.preventDefault()
     const game = gameBuilder.buildForUpdate(this.state.gameData)
@@ -188,6 +202,7 @@ class GameDetailPage extends React.Component {
             onChange={e => this.handleChange(e)}
             onCheck={(e, checked) => this.handleCheck(e, checked)}
             onSelect={(e, key, payload) => this.handleSelect(e, key, payload)}
+            onDateSelect={(e, date) => this.handleDateSelect(e, date)}
             onSubmit={e => this.handleSubmit(e)}
             onCancel={e => this.exitEditingState(e)}
             onDelete={e => this.showDeleteDialog(e)}

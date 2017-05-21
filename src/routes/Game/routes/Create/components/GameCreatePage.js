@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 import Paper from 'material-ui/Paper'
 
@@ -17,12 +18,14 @@ class GameCreatePage extends React.Component {
       gameData: {
         title: '',
         platform: undefined,
-        finished: false
+        finished: false,
+        dates: []
       },
       validationErrors: {
         title: '',
         platform: '',
-        finished: ''
+        finished: '',
+        dates: ''
       }
     }
   }
@@ -50,6 +53,16 @@ class GameCreatePage extends React.Component {
 
     if (key in gameData) {
       gameData[key] = checked
+      this.setState({ gameData })
+    }
+  }
+
+  handleDateSelect (event, date) {
+    let gameData = Object.assign({}, this.state.gameData)
+    let dateStr = moment(date).format('YYYY-MM-DD')
+
+    if (!gameData.dates.includes(dateStr)) {
+      gameData.dates.push(dateStr)
       this.setState({ gameData })
     }
   }
@@ -97,6 +110,7 @@ class GameCreatePage extends React.Component {
           onChange={e => this.handleChange(e)}
           onCheck={(e, checked) => this.handleCheck(e, checked)}
           onSelect={(e, key, payload) => this.handleSelect(e, key, payload)}
+          onDateSelect={(e, date) => this.handleDateSelect(e, date)}
           onSubmit={e => this.handleSubmit(e)}
           onCancel={e => this.handleCancel(e)}
         />
