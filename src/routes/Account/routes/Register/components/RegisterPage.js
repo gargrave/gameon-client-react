@@ -46,11 +46,13 @@ class RegisterPage extends React.Component {
     event.preventDefault()
     if (this.isValid()) {
       const { register, fetchUser } = this.props.actions
-      register(this.state.registerData).then(() => {
-        fetchUser().then(() => {
-          this.props.router.replace(localUrls.profile)
-        })
-      })
+      register(this.state.registerData)
+        .then(() => {
+          fetchUser()
+          .then(() => {
+            this.props.router.replace(localUrls.profile)
+          }, () => {})
+        }, () => {})
     }
   }
 

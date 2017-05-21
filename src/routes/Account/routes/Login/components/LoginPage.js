@@ -43,9 +43,10 @@ class LoginPage extends React.Component {
     const { login, fetchUser } = this.props.actions
     if (this.isValid()) {
       login(this.state.loginData).then(() => {
-        fetchUser().then(() => {
-          this.props.router.replace(localUrls.profile)
-        }, () => {})
+        fetchUser()
+          .then(() => {
+            this.props.router.replace(localUrls.profile)
+          }, () => {})
       }, () => {})
     }
   }
@@ -96,6 +97,7 @@ class LoginPage extends React.Component {
           changed={e => this.handleChange(e)}
           submitted={e => this.handleSubmit(e)}
         />
+
       </Paper>
     )
   }
