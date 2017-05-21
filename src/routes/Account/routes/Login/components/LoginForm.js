@@ -16,6 +16,7 @@ const LoginForm = (props) => (
         name='username'
         hintText='Username'
         floatingLabelText='Username'
+        disabled={props.working}
         errorText={props.errors.username}
         value={props.loginData.username}
         onChange={props.changed}
@@ -28,6 +29,7 @@ const LoginForm = (props) => (
         name='password'
         hintText='Password'
         floatingLabelText='Password'
+        disabled={props.working}
         errorText={props.errors.password}
         value={props.loginData.password}
         onChange={props.changed}
@@ -38,6 +40,7 @@ const LoginForm = (props) => (
         id='login-submit'
         type='submit'
         label='Submit'
+        disabled={props.working}
         onClick={props.submitted}
       />
 

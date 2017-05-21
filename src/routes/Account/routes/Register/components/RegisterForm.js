@@ -16,6 +16,7 @@ const RegisterForm = (props) => (
         name='username'
         hintText='Username'
         floatingLabelText='Username'
+        disabled={props.working}
         errorText={props.errors.username}
         value={props.registerData.username}
         onChange={props.changed}
@@ -28,6 +29,7 @@ const RegisterForm = (props) => (
         name='email'
         hintText='Email'
         floatingLabelText='Email'
+        disabled={props.working}
         errorText={props.errors.email}
         value={props.registerData.email}
         onChange={props.changed}
@@ -40,6 +42,7 @@ const RegisterForm = (props) => (
         name='password1'
         hintText='Password'
         floatingLabelText='Password'
+        disabled={props.working}
         errorText={props.errors.password1}
         value={props.registerData.password1}
         onChange={props.changed}
@@ -52,6 +55,7 @@ const RegisterForm = (props) => (
         name='password2'
         hintText='Confirm Password'
         floatingLabelText='Confirm Password'
+        disabled={props.working}
         errorText={props.errors.password2}
         value={props.registerData.password2}
         onChange={props.changed}
@@ -63,6 +67,7 @@ const RegisterForm = (props) => (
         className='go-btn'
         type='submit'
         label='Submit'
+        disabled={props.working}
         onClick={props.submitted}
       />
     </form>
