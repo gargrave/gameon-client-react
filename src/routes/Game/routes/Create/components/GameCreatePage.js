@@ -5,6 +5,7 @@ import moment from 'moment'
 import Paper from 'material-ui/Paper'
 
 import { localUrls } from '../../../../../globals/urls'
+import GameModel from '../../../../../models/game'
 import { validate } from '../../../utils/gameValidator'
 
 import Alert from '../../../../../components/Common/Alert'
@@ -15,18 +16,10 @@ class GameCreatePage extends React.Component {
     super(props)
 
     this.state = {
-      gameData: {
-        title: '',
-        platform: undefined,
-        finished: false,
-        dates: []
-      },
-      validationErrors: {
-        title: '',
-        platform: '',
-        finished: '',
-        dates: ''
-      }
+      disableForm: false,
+      gameData: GameModel.empty(),
+      validationErrors: GameModel.validation(),
+      datesAdded: []
     }
   }
 
@@ -58,30 +51,49 @@ class GameCreatePage extends React.Component {
   }
 
   handleDateSelect (event, date) {
-    let gameData = Object.assign({}, this.state.gameData)
     let dateStr = moment(date).format('YYYY-MM-DD')
 
-    if (!gameData.dates.includes(dateStr)) {
+    if (!this.state.datesAdded.includes(dateStr)) {
+      let gameData = Object.assign({}, this.state.gameData)
+      let datesAdded = [...this.state.datesAdded, dateStr]
+
       gameData.dates.push(dateStr)
-      this.setState({ gameData })
+      gameData.dates.sort().reverse()
+
+      this.setState({
+        gameData,
+        datesAdded
+      })
     }
+  }
+
+  handleDateClick (date) {
+    let gameData = Object.assign({}, this.state.gameData)
+    let { datesAdded } = this.state
+
+    if (datesAdded.includes(date)) {
+      gameData.dates = gameData.dates.filter(d => d !== date)
+      datesAdded = datesAdded.filter(d => d !== date)
+    }
+
+    this.setState({
+      gameData,
+      datesAdded
+    })
   }
 
   handleSubmit (event) {
     event.preventDefault()
     const game = this.state.gameData
-    const val = validate(game)
-    this.setState({ validationErrors: val.errors })
-    console.log('game data:')
-    console.log(game)
+    const { errors, valid } = validate(game)
+    this.setState({ validationErrors: errors })
 
-    // if (val.valid) {
-    //   this.props.actions.createGame(game)
-    //     .then(game => {
-    //       this.props.router.push(`${localUrls.gamesList}/${game.id}`)
-    //     }, () => {
-    //     })
-    // }
+    if (valid) {
+      this.props.actions.createGame(game)
+        .then(game => {
+          this.props.router.push(`${localUrls.gamesList}/${game.id}`)
+        }, () => {})
+    }
   }
 
   handleCancel (event) {
@@ -105,12 +117,15 @@ class GameCreatePage extends React.Component {
         <GameForm
           working={this.props.ajaxPending}
           gameData={this.state.gameData}
+          datesAdded={this.state.datesAdded}
           platforms={this.props.platforms}
           errors={this.state.validationErrors}
+          disabled={this.state.disableForm}
           onChange={e => this.handleChange(e)}
           onCheck={(e, checked) => this.handleCheck(e, checked)}
           onSelect={(e, key, payload) => this.handleSelect(e, key, payload)}
           onDateSelect={(e, date) => this.handleDateSelect(e, date)}
+          onDateClick={date => this.handleDateClick(date)}
           onSubmit={e => this.handleSubmit(e)}
           onCancel={e => this.handleCancel(e)}
         />
