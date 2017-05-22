@@ -27,7 +27,9 @@ class GameDetailPage extends React.Component {
       },
       validationErrors: {
         title: ''
-      }
+      },
+      datesAdded: [],
+      datesRemoved: []
     }
   }
 
@@ -111,16 +113,40 @@ class GameDetailPage extends React.Component {
   }
 
   handleDateSelect (event, date) {
-    let gameData = Object.assign({}, this.state.gameData)
     let dateStr = moment(date).format('YYYY-MM-DD')
 
-    if (!gameData.dates.includes(dateStr)) {
+    if (!this.state.datesAdded.includes(dateStr)) {
+      let gameData = Object.assign({}, this.state.gameData)
+      let datesAdded = [...this.state.datesAdded, dateStr]
+
       gameData.dates.push(dateStr)
+      gameData.dates.sort().reverse()
+
       this.setState({
         gameData,
-        disableForm: compare(gameData, this.props.game)
+        datesAdded
       })
     }
+  }
+
+  handleDateClick (date) {
+    let gameData = Object.assign({}, this.state.gameData)
+    let { datesAdded, datesRemoved } = this.state
+
+    if (datesAdded.includes(date)) {
+      gameData.dates = gameData.dates.filter(d => d !== date)
+      datesAdded = datesAdded.filter(d => d !== date)
+    } else if (datesRemoved.includes(date)) {
+      datesRemoved = datesRemoved.filter(d => d !== date)
+    } else {
+      datesRemoved.push(date)
+    }
+
+    this.setState({
+      gameData,
+      datesAdded,
+      datesRemoved
+    })
   }
 
   handleSubmit (event) {
@@ -196,6 +222,8 @@ class GameDetailPage extends React.Component {
           <GameForm
             working={ajaxPending}
             gameData={gameData}
+            datesAdded={this.state.datesAdded}
+            datesRemoved={this.state.datesRemoved}
             platforms={this.props.platforms}
             errors={validationErrors}
             disabled={disableForm}
@@ -203,6 +231,7 @@ class GameDetailPage extends React.Component {
             onCheck={(e, checked) => this.handleCheck(e, checked)}
             onSelect={(e, key, payload) => this.handleSelect(e, key, payload)}
             onDateSelect={(e, date) => this.handleDateSelect(e, date)}
+            onDateClick={date => this.handleDateClick(date)}
             onSubmit={e => this.handleSubmit(e)}
             onCancel={e => this.exitEditingState(e)}
             onDelete={e => this.showDeleteDialog(e)}

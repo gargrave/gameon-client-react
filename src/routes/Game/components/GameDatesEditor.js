@@ -2,32 +2,60 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import DatePicker from 'material-ui/DatePicker'
+import { List, ListItem } from 'material-ui/List'
 
-const renderDateItem = (d) => {
-  return (
-    <li key={d}>{d}</li>
-  )
+class GameForm extends React.Component {
+  renderDatesList () {
+    const { dates } = this.props.gameData
+    const { datesAdded, datesRemoved } = this.props
+
+    const getClass = (d) => {
+      if (datesRemoved.includes(d)) {
+        return 'removed-date'
+      } else if (datesAdded.includes(d)) {
+        return 'new-date'
+      }
+    }
+
+    return (
+      <List>
+        {dates.map(d => {
+          return (
+            <ListItem
+              key={d}
+              className={getClass(d)}
+              primaryText={d}
+              onTouchTap={() => this.props.onDateClick(d)}
+            />
+          )
+        })}
+      </List>
+    )
+  }
+
+  render () {
+    return (
+      <div>
+        <DatePicker
+          fullWidth
+          hintText='Add a Date'
+          disabled={this.props.working}
+          onChange={this.props.onDateSelect}
+        />
+
+        {this.renderDatesList()}
+      </div>
+    )
+  }
 }
-
-const GameForm = (props) => (
-  <div>
-    <DatePicker
-      fullWidth
-      hintText='Add a Date'
-      disabled={props.working}
-      onChange={props.onDateSelect}
-    />
-
-    <ul>
-      {props.gameData.dates.map(d => renderDateItem(d))}
-    </ul>
-  </div>
-)
 
 GameForm.propTypes = {
   working: PropTypes.bool.isRequired,
   gameData: PropTypes.object.isRequired,
-  onDateSelect: PropTypes.func.isRequired
+  datesAdded: PropTypes.array.isRequired,
+  datesRemoved: PropTypes.array.isRequired,
+  onDateSelect: PropTypes.func.isRequired,
+  onDateClick: PropTypes.func
 }
 
 export default GameForm

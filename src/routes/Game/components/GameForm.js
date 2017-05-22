@@ -51,7 +51,10 @@ const GameForm = (props) => (
       <GameDatesEditor
         working={props.working}
         gameData={props.gameData}
+        datesAdded={props.datesAdded}
+        datesRemoved={props.datesRemoved}
         onDateSelect={props.onDateSelect}
+        onDateClick={props.onDateClick}
       />
 
       <hr />
@@ -89,6 +92,8 @@ const GameForm = (props) => (
 GameForm.propTypes = {
   working: PropTypes.bool.isRequired,
   gameData: PropTypes.object.isRequired,
+  datesAdded: PropTypes.array,
+  datesRemoved: PropTypes.array,
   platforms: PropTypes.array.isRequired,
   errors: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
@@ -96,6 +101,7 @@ GameForm.propTypes = {
   onCheck: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   onDateSelect: PropTypes.func.isRequired,
+  onDateClick: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func
