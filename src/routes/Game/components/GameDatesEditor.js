@@ -10,9 +10,9 @@ class GameForm extends React.Component {
     const { datesAdded, datesRemoved } = this.props
 
     const getClass = (d) => {
-      if (datesRemoved.includes(d)) {
+      if (datesRemoved && datesRemoved.includes(d)) {
         return 'removed-date'
-      } else if (datesAdded.includes(d)) {
+      } else if (datesAdded && datesAdded.includes(d)) {
         return 'new-date'
       }
     }
@@ -53,7 +53,7 @@ GameForm.propTypes = {
   working: PropTypes.bool.isRequired,
   gameData: PropTypes.object.isRequired,
   datesAdded: PropTypes.array.isRequired,
-  datesRemoved: PropTypes.array.isRequired,
+  datesRemoved: PropTypes.array,
   onDateSelect: PropTypes.func.isRequired,
   onDateClick: PropTypes.func
 }
