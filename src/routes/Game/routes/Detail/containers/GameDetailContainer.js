@@ -18,6 +18,7 @@ const mapStateToProps = (state, ownProps) => {
 
   let gameId = ownProps.params.id
   let game = apiHelper.findRecordById(state.games.items, gameId) || {}
+  game.dates.sort().reverse()
 
   return {
     initializing,
