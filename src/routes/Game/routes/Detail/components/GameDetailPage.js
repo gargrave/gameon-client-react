@@ -5,7 +5,7 @@ import moment from 'moment'
 import Paper from 'material-ui/Paper'
 
 import { localUrls } from '../../../../../globals/urls'
-import gameBuilder from '../../../utils/gameBuilder'
+import GameModel from '../../../../../models/game'
 import { compare, validate } from '../../../utils/gameValidator'
 
 import ConfirmDialog from '../../../../../components/ConfirmDialog'
@@ -151,18 +151,23 @@ class GameDetailPage extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault()
-    const game = gameBuilder.buildForUpdate(this.state.gameData)
-    const val = validate(game)
-    this.setState({ validationErrors: val.errors })
-    console.log('game data:')
-    console.log(game)
 
-    // if (val.valid) {
-    //   this.props.actions.updateGame(game)
-    //     .then(game => {
-    //       this.exitEditingState()
-    //     }, () => { })
-    // }
+    let tempGameData = Object.assign({}, this.state.gameData)
+    tempGameData.datesRemoved = this.state.datesRemoved
+    tempGameData.dates = tempGameData.dates.filter(d => {
+      return !this.state.datesRemoved.includes(d)
+    })
+
+    const game = GameModel.toAPI(tempGameData)
+    const { valid, errors } = validate(game)
+    this.setState({ validationErrors: errors })
+
+    if (valid) {
+      this.props.actions.updateGame(game)
+        .then(game => {
+          this.exitEditingState()
+        }, () => { })
+    }
   }
 
   handleBackClick (event) {
