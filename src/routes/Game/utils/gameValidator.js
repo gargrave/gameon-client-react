@@ -1,3 +1,4 @@
+import { cloneDeep, isEqual } from 'lodash'
 import validator from 'validator'
 
 import { valErrs } from '../../../globals/errors'
@@ -14,9 +15,8 @@ function parsePlatform (game) {
 }
 
 export function validate (data) {
-  console.log('TODO: gameValidator.js -> need to compare dates lists')
   let valid = true
-  let testData = Object.assign({}, data)
+  let testData = cloneDeep(data)
   let errors = {
     title: ''
   }
@@ -54,6 +54,16 @@ export function compare (a, b) {
   const platformA = parsePlatform(a)
   const platformB = parsePlatform(b)
   if (platformA !== platformB) {
+    match = false
+  }
+
+  // compare dates: all of existing, added, and removed
+  // many objects will not have any props for these, hence the empty array defaults
+  if (!isEqual(a.dates || [], b.dates || [])) {
+    match = false
+  } else if (!isEqual(a.datesAdded || [], b.datesAdded || [])) {
+    match = false
+  } else if (!isEqual(a.datesRemoved || [], b.datesRemoved || [])) {
     match = false
   }
 
