@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import { cloneDeep } from 'lodash'
 
 import Paper from 'material-ui/Paper'
 
@@ -16,15 +17,13 @@ class GameCreatePage extends React.Component {
     super(props)
 
     this.state = {
-      disableForm: false,
       gameData: GameModel.empty(),
-      validationErrors: GameModel.emptyValidationErrors(),
-      datesAdded: []
+      validationErrors: GameModel.emptyValidationErrors()
     }
   }
 
   handleChange (event) {
-    let gameData = Object.assign({}, this.state.gameData)
+    let gameData = cloneDeep(this.state.gameData)
     const key = event.target.name
     const value = event.target.value
 
@@ -35,13 +34,13 @@ class GameCreatePage extends React.Component {
   }
 
   handleSelect (event, key, payload) {
-    let gameData = Object.assign({}, this.state.gameData)
+    let gameData = cloneDeep(this.state.gameData)
     gameData.platform = payload
     this.setState({ gameData })
   }
 
   handleCheck (event, checked) {
-    let gameData = Object.assign({}, this.state.gameData)
+    let gameData = cloneDeep(this.state.gameData)
     const key = event.target.name
 
     if (key in gameData) {
@@ -52,34 +51,27 @@ class GameCreatePage extends React.Component {
 
   handleDateSelect (event, date) {
     let dateStr = moment(date).format('YYYY-MM-DD')
+    let gameData = cloneDeep(this.state.gameData)
 
-    if (!this.state.datesAdded.includes(dateStr)) {
-      let gameData = Object.assign({}, this.state.gameData)
-      let datesAdded = [...this.state.datesAdded, dateStr]
-
+    if (!gameData.datesAdded.includes(dateStr)) {
+      gameData.datesAdded.push(dateStr)
       gameData.dates.push(dateStr)
       gameData.dates.sort().reverse()
 
-      this.setState({
-        gameData,
-        datesAdded
-      })
+      this.setState({ gameData })
     }
   }
 
   handleDateClick (date) {
-    let gameData = Object.assign({}, this.state.gameData)
-    let { datesAdded } = this.state
+    let gameData = cloneDeep(this.state.gameData)
+    let add = gameData.datesAdded
 
-    if (datesAdded.includes(date)) {
+    if (add.includes(date)) {
       gameData.dates = gameData.dates.filter(d => d !== date)
-      datesAdded = datesAdded.filter(d => d !== date)
+      gameData.datesAdded = add.filter(d => d !== date)
     }
 
-    this.setState({
-      gameData,
-      datesAdded
-    })
+    this.setState({ gameData })
   }
 
   handleSubmit (event) {
@@ -117,10 +109,8 @@ class GameCreatePage extends React.Component {
         <GameForm
           working={this.props.ajaxPending}
           gameData={this.state.gameData}
-          datesAdded={this.state.datesAdded}
           platforms={this.props.platforms}
           errors={this.state.validationErrors}
-          disabled={this.state.disableForm}
           onChange={e => this.handleChange(e)}
           onCheck={(e, checked) => this.handleCheck(e, checked)}
           onSelect={(e, key, payload) => this.handleSelect(e, key, payload)}
