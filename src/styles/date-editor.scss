@@ -1,0 +1,10 @@
+.new-date {
+  color: $newDateTextColor !important;
+  background-color: $newDateBgColor !important;
+}
+
+.removed-date {
+  color: $removedDateTextColor !important;
+  background-color: $removedDateBgColor !important;
+  text-decoration: line-through !important;
+}
