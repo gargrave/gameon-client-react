@@ -92,7 +92,7 @@ const GameForm = (props) => (
 GameForm.propTypes = {
   working: PropTypes.bool.isRequired,
   gameData: PropTypes.object.isRequired,
-  datesAdded: PropTypes.array,
+  datesAdded: PropTypes.array.isRequired,
   datesRemoved: PropTypes.array,
   platforms: PropTypes.array.isRequired,
   errors: PropTypes.object.isRequired,
