@@ -18,7 +18,7 @@ class GameCreatePage extends React.Component {
     this.state = {
       disableForm: false,
       gameData: GameModel.empty(),
-      validationErrors: GameModel.validation(),
+      validationErrors: GameModel.emptyValidationErrors(),
       datesAdded: []
     }
   }

@@ -14,6 +14,7 @@ function parsePlatform (game) {
 }
 
 export function validate (data) {
+  console.log('TODO: gameValidator.js -> need to compare dates lists')
   let valid = true
   let testData = Object.assign({}, data)
   let errors = {
