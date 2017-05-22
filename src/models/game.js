@@ -1,10 +1,14 @@
+import { cloneDeep } from 'lodash'
+
 export default {
   empty () {
     return {
       title: '',
       platform: undefined,
       finished: false,
-      dates: []
+      dates: [],
+      datesAdded: [],
+      datesRemoved: []
     }
   },
 
@@ -27,7 +31,19 @@ export default {
     return payload
   },
 
-  validation () {
+  fromAPI (data) {
+    let updated = {
+      platform: data.platform.id
+    }
+
+    return Object.assign({},
+      this.empty(),
+      cloneDeep(data),
+      updated
+    )
+  },
+
+  emptyValidationErrors () {
     return {
       title: '',
       platform: '',

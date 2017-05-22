@@ -6,8 +6,7 @@ import { List, ListItem } from 'material-ui/List'
 
 class GameForm extends React.Component {
   renderDatesList () {
-    const { dates } = this.props.gameData
-    const { datesAdded, datesRemoved } = this.props
+    const { dates, datesAdded, datesRemoved } = this.props.gameData
 
     const getClass = (d) => {
       if (datesRemoved && datesRemoved.includes(d)) {
@@ -52,8 +51,6 @@ class GameForm extends React.Component {
 GameForm.propTypes = {
   working: PropTypes.bool.isRequired,
   gameData: PropTypes.object.isRequired,
-  datesAdded: PropTypes.array.isRequired,
-  datesRemoved: PropTypes.array,
   onDateSelect: PropTypes.func.isRequired,
   onDateClick: PropTypes.func
 }

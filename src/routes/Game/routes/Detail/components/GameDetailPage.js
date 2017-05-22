@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import { cloneDeep } from 'lodash'
 
 import Paper from 'material-ui/Paper'
 
@@ -22,13 +23,8 @@ class GameDetailPage extends React.Component {
       editing: false,
       disableForm: false,
       deleteDialogShowing: false,
-      gameData: {
-        title: ''
-      },
-      validationErrors: {
-        title: ''
-      },
-      datesAdded: [],
+      gameData: GameModel.empty(),
+      validationErrors: GameModel.emptyValidationErrors(),
       datesRemoved: []
     }
   }
@@ -57,15 +53,10 @@ class GameDetailPage extends React.Component {
   }
 
   enterEditingState (event) {
-    event.preventDefault()
-    const platform = this.props.game.platform.id
     this.setState({
       editing: true,
       disableForm: true,
-      gameData: Object.assign({},
-        this.props.game,
-        { platform }
-      )
+      gameData: GameModel.fromAPI(this.props.game)
     })
   }
 
@@ -77,7 +68,7 @@ class GameDetailPage extends React.Component {
   }
 
   handleChange (event) {
-    let gameData = Object.assign({}, this.state.gameData)
+    let gameData = cloneDeep(this.state.gameData)
     const key = event.target.name
     const value = event.target.value
 
@@ -91,7 +82,7 @@ class GameDetailPage extends React.Component {
   }
 
   handleSelect (event, key, payload) {
-    let gameData = Object.assign({}, this.state.gameData)
+    let gameData = cloneDeep(this.state.gameData)
     gameData.platform = payload
     this.setState({
       gameData,
@@ -100,7 +91,7 @@ class GameDetailPage extends React.Component {
   }
 
   handleCheck (event, checked) {
-    let gameData = Object.assign({}, this.state.gameData)
+    let gameData = cloneDeep(this.state.gameData)
     const key = event.target.name
 
     if (key in gameData) {
@@ -114,48 +105,46 @@ class GameDetailPage extends React.Component {
 
   handleDateSelect (event, date) {
     let dateStr = moment(date).format('YYYY-MM-DD')
+    let gameData = cloneDeep(this.state.gameData)
 
-    if (!this.state.datesAdded.includes(dateStr)) {
-      let gameData = Object.assign({}, this.state.gameData)
-      let datesAdded = [...this.state.datesAdded, dateStr]
-
+    if (!gameData.datesAdded.includes(dateStr)) {
+      gameData.datesAdded.push(dateStr)
       gameData.dates.push(dateStr)
       gameData.dates.sort().reverse()
 
       this.setState({
         gameData,
-        datesAdded
+        disableForm: compare(gameData, this.props.game)
       })
     }
   }
 
   handleDateClick (date) {
-    let gameData = Object.assign({}, this.state.gameData)
-    let { datesAdded, datesRemoved } = this.state
+    let gameData = cloneDeep(this.state.gameData)
+    let { datesRemoved } = this.state
 
-    if (datesAdded.includes(date)) {
+    if (gameData.datesAdded.includes(date)) {
       gameData.dates = gameData.dates.filter(d => d !== date)
-      datesAdded = datesAdded.filter(d => d !== date)
-    } else if (datesRemoved.includes(date)) {
-      datesRemoved = datesRemoved.filter(d => d !== date)
+      gameData.datesAdded = gameData.datesAdded.filter(d => d !== date)
+    } else if (gameData.datesRemoved.includes(date)) {
+      gameData.datesRemoved = gameData.datesRemoved.filter(d => d !== date)
     } else {
-      datesRemoved.push(date)
+      gameData.datesRemoved.push(date)
     }
 
     this.setState({
       gameData,
-      datesAdded,
-      datesRemoved
+      disableForm: compare(gameData, this.props.game)
     })
   }
 
   handleSubmit (event) {
     event.preventDefault()
 
-    let tempGameData = Object.assign({}, this.state.gameData)
-    tempGameData.datesRemoved = this.state.datesRemoved
+    // remove any dates flagged for removal from the main 'dates' list
+    let tempGameData = cloneDeep(this.state.gameData)
     tempGameData.dates = tempGameData.dates.filter(d => {
-      return !this.state.datesRemoved.includes(d)
+      return !tempGameData.datesRemoved.includes(d)
     })
 
     const game = GameModel.toAPI(tempGameData)
@@ -227,8 +216,6 @@ class GameDetailPage extends React.Component {
           <GameForm
             working={ajaxPending}
             gameData={gameData}
-            datesAdded={this.state.datesAdded}
-            datesRemoved={this.state.datesRemoved}
             platforms={this.props.platforms}
             errors={validationErrors}
             disabled={disableForm}
