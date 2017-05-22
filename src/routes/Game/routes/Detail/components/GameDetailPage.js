@@ -24,8 +24,7 @@ class GameDetailPage extends React.Component {
       disableForm: false,
       deleteDialogShowing: false,
       gameData: GameModel.empty(),
-      validationErrors: GameModel.emptyValidationErrors(),
-      datesRemoved: []
+      validationErrors: GameModel.emptyValidationErrors()
     }
   }
 
@@ -121,15 +120,16 @@ class GameDetailPage extends React.Component {
 
   handleDateClick (date) {
     let gameData = cloneDeep(this.state.gameData)
-    let { datesRemoved } = this.state
+    let add = gameData.datesAdded
+    let rem = gameData.datesRemoved
 
-    if (gameData.datesAdded.includes(date)) {
+    if (add.includes(date)) {
       gameData.dates = gameData.dates.filter(d => d !== date)
-      gameData.datesAdded = gameData.datesAdded.filter(d => d !== date)
-    } else if (gameData.datesRemoved.includes(date)) {
-      gameData.datesRemoved = gameData.datesRemoved.filter(d => d !== date)
+      gameData.datesAdded = add.filter(d => d !== date)
+    } else if (rem.includes(date)) {
+      gameData.datesRemoved = rem.filter(d => d !== date)
     } else {
-      gameData.datesRemoved.push(date)
+      rem.push(date)
     }
 
     this.setState({
