@@ -44,14 +44,14 @@
       }
     },
     "deploy:dev": {
-      "command": "npm run deploy",
+      "command": "npm run deploy && netlify deploy -e staging",
       "env": {
-        "NODE_ENV": "development",
+        "NODE_ENV": "production",
         "DEBUG": "app:*"
       }
     },
     "deploy:prod": {
-      "command": "npm run deploy",
+      "command": "npm run deploy && netlify deploy -e prod",
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"
