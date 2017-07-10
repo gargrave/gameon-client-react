@@ -1,9 +1,5 @@
-# GameOn
+# GameOn (React)
 
-Front-end codebase for my GameOn app. This is a re-build of my [Quasar version](https://github.com/gargrave/gameon-client-quasar) of the same app, mostly because I wanted to focus on React over Vue. It uses the same Django REST Framework API as the previous project.
+Partial front end code base for my GameOn app (the Django REST Framework server code base can be found [here](https://github.com/gargrave/gameon-server)). Note that I have retired this version of the front end code and replaced it with the Vue/Quasar version [here](https://github.com/gargrave/gameon-client-quasar). Unfortunately, the boilerplate I chose for this React project proved to be a little cumbersome to maintain, so I decided to move on before it was deployed.
 
-This is very much a work-in-progress, so it still has quite a number of features that need to be added before it is useful.
-
-You can find the current WIP back-end codebase [here](https://github.com/gargrave/gameon-server).
-
-(More info to come in the future...)
+If you look around, you will see a lot of the usual suspects: React, Redux, React Router, Thunk, Jest, Material UI, Sass, etc. All good stuff, but this is one of those projects that just didn't work out.
